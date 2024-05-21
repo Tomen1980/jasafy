@@ -14,6 +14,7 @@ class Service extends Model
         'category_id',
         'title',
         'description',
+        'price',
         'location',
     ];
 
@@ -30,5 +31,10 @@ class Service extends Model
     public function ratings()
     {
         return $this->hasMany(Rating::class);
+    }
+
+    public function wishlists()
+    {
+        return $this->hasMany(Wishlist::class);
     }
 }

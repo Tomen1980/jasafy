@@ -13,8 +13,7 @@ return new class extends Migration
     {
         Schema::table('users', function (Blueprint $table) {
             $table->string('username')->unique()->after('email');
-            $table->string('nama')->after('username');
-            $table->text('deskripsi')->nullable()->after('nama');
+            $table->text('description')->nullable()->after('username');
         });
     }
 
@@ -25,8 +24,7 @@ return new class extends Migration
     {
         Schema::table('users', function (Blueprint $table) {
             $table->dropColumn('username');
-            $table->dropColumn('nama');
-            $table->dropColumn('deskripsi');
+            $table->dropColumn('description');
         });
     }
 };

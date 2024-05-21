@@ -3,7 +3,6 @@
 namespace Database\Factories;
 
 use Illuminate\Database\Eloquent\Factories\Factory;
-use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Str;
 
 /**
@@ -30,9 +29,8 @@ class UserFactory extends Factory
             'password' => bcrypt('password'), // password
             'remember_token' => Str::random(10),
             'username' => $this->faker->unique()->userName,
-            'nama' => $this->faker->name,
-            'deskripsi' => $this->faker->sentence,
-            'role_id' => \App\Models\Role::inRandomOrder()->first()->id,
+            'description' => $this->faker->sentence,
+            'role' => $this->faker->randomElement(['admin', 'user']),
         ];
     }
 
