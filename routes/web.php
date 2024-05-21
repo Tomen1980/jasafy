@@ -17,7 +17,7 @@ use App\Livewire\Register;
 |
 */
 
-Route::view('/', 'welcome')->name('home');
+Route::view('/', 'home')->name('home');
 
 Route::middleware([RedirectIfAuthenticated::class])->group(function () {
   Route::get('/login', Login::class)->name('login');
