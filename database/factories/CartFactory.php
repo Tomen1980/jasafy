@@ -15,7 +15,6 @@ class CartFactory extends Factory
         return [
             'user_id' => User::factory(),
             'service_id' => Service::factory(),
-            'quantity' => $this->faker->numberBetween(1, 5),
         ];
     }
 }

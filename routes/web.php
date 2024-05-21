@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Middleware\RedirectIfAuthenticated;
 use Illuminate\Support\Facades\Route;
 
 use App\Livewire\Login;
@@ -18,5 +19,7 @@ use App\Livewire\Register;
 
 Route::view('/', 'welcome')->name('home');
 
-Route::get('/login', Login::class)->name('login');
-Route::get('/register', Register::class)->name('register');
+Route::middleware([RedirectIfAuthenticated::class])->group(function () {
+  Route::get('/login', Login::class)->name('login');
+  Route::get('/register', Register::class)->name('register');
+});

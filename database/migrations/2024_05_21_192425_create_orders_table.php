@@ -15,6 +15,8 @@ return new class extends Migration
             $table->id();
             $table->foreignId('user_id')->constrained()->onDelete('cascade');
             $table->string('status')->default('pending');
+            $table->boolean('is_paid')->default(false);
+            $table->integer('total_price');
             $table->timestamps();
         });
 
@@ -22,7 +24,6 @@ return new class extends Migration
             $table->id();
             $table->foreignId('order_id')->constrained()->onDelete('cascade');
             $table->foreignId('service_id')->constrained()->onDelete('cascade');
-            $table->integer('quantity');
             $table->timestamps();
         });
     }

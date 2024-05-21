@@ -12,6 +12,8 @@ class Order extends Model
     protected $fillable = [
         'user_id',
         'status',
+        'is_paid',
+        'total_price',
         'file_url'
     ];
 
