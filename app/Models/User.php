@@ -20,10 +20,10 @@ class User extends Authenticatable
         'name',
         'email',
         'password',
-        'role_id',
         'username',
-        'nama',
-        'deskripsi',
+        'phone_number',
+        'description',
+        'role',
     ];
 
     /**
@@ -49,7 +49,11 @@ class User extends Authenticatable
         ];
     }
 
-    public function role() {
-        return $this->belongsTo(Role::class);
+    public function services() {
+        return $this->hasMany(Service::class);
+    }
+
+    public function wishlists() {
+        return $this->hasMany(Wishlist::class);
     }
 }
