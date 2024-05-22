@@ -25,6 +25,11 @@
     </head>
 
     <body>
-        @yield('body')
+        <div>
+            @livewire("navbar")
+            <main>
+                @yield('body')
+            </main>
+        </div>
     </body>
 </html>
