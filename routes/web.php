@@ -23,3 +23,8 @@ Route::middleware([RedirectIfAuthenticated::class])->group(function () {
   Route::get('/login', Login::class)->name('login');
   Route::get('/register', Register::class)->name('register');
 });
+
+
+Route::get("tampil",function(){
+  return "Berhasil login regis";
+})->middleware("auth");

@@ -13,12 +13,13 @@ return new class extends Migration
     {
         Schema::create('services', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('user_id')->constrained()->onDelete('cascade');
-            $table->foreignId('category_id')->constrained()->onDelete('cascade');
+            $table->foreignId('user_id')->constrained()->onDelete('cascade')->onUpdate('cascade')->references("id")->on("users");
+            $table->foreignId('category_id')->constrained()->onDelete('cascade')->onUpdate('cascade')->references("id")->on("categories");
             $table->string('title');
             $table->text('description');
             $table->float('price');
             $table->string('location');
+            $table->string('maps');
             $table->timestamps();
         });
     }

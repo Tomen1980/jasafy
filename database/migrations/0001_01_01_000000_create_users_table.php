@@ -20,10 +20,9 @@ return new class extends Migration
 
             // $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
-            $table->enum('role',['penjual','pembeli']);
-            $table->string('alamat');
-            $table->string('maps');
             $table->string('phone_number');
+            $table->enum('role',['seller','customer ']);
+            $table->string("image")->nullable();
             $table->rememberToken();
             $table->timestamps();
         });

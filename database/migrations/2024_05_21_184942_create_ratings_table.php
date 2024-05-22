@@ -13,8 +13,8 @@ return new class extends Migration
     {
         Schema::create('ratings', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('user_id')->constrained()->onDelete('cascade');
-            $table->foreignId('service_id')->constrained()->onDelete('cascade');
+            $table->foreignId('user_id')->constrained()->onDelete('cascade')->onUpdate('cascade')->references("id")->on("users");
+            $table->foreignId('service_id')->constrained()->onDelete('cascade')->onUpdate('cascade')->references("id")->on("services");
             $table->integer('rating'); // nilai rating, misalnya dari 1 sampai 5
             $table->text('comment')->nullable();
             $table->timestamps();
