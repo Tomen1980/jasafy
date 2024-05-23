@@ -17,24 +17,24 @@
                     </button>
                 </div>
                 <div class="flex-shrink-0 flex items-center">
-                    <a href="/">
+                    <a href="/" wire:navigate.hover>
                         <img alt="logo" class="h-16 w-16 md:h-[5rem] md:w-[5rem]"
                             src="{{ asset('logo.svg') }}" /></a>
                 </div>
             </div>
             <div class="hidden md:flex md:items-center md:space-x-4">
                 <a href="/"
-                    class="text-gray-500 hover:text-gray-700 px-3 py-2 rounded-md text-sm font-medium">Home</a>
+                    class="text-gray-500 hover:text-gray-700 px-3 py-2 rounded-md text-sm font-medium" wire:navigate.hover>Home</a>
                 @if (Auth::check())
                     <a href="/dashboard"
-                        class="text-gray-500 hover:text-gray-700 px-3 py-2 rounded-md text-sm font-medium">Dashboard</a>
+                        class="text-gray-500 hover:text-gray-700 px-3 py-2 rounded-md text-sm font-medium" wire:navigate.hover>Dashboard</a>
                     <button wire:click="logout"
-                        class="text-gray-500 hover:text-gray-700 px-3 py-2 rounded-md text-sm font-medium">Logout</button>
+                        class="text-gray-500 hover:text-gray-700 px-3 py-2 rounded-md text-sm font-medium" wire:navigate.hover>Logout</button>
                 @else
                     <a href="/login"
-                        class="text-gray-500 hover:text-gray-700 px-3 py-2 rounded-md text-sm font-medium">Login</a>
+                        class="text-gray-500 hover:text-gray-700 px-3 py-2 rounded-md text-sm font-medium" wire:navigate.hover>Login</a>
                     <a href="/register"
-                        class="text-gray-500 hover:text-gray-700 px-3 py-2 rounded-md text-sm font-medium">Register</a>
+                        class="text-gray-500 hover:text-gray-700 px-3 py-2 rounded-md text-sm font-medium" wire:navigate.hover>Register</a>
                 @endif
             </div>
         </div>
@@ -43,17 +43,17 @@
     <div :class="{ 'block': open, 'hidden': !open }" class="md:hidden">
         <div class="px-2 pt-2 pb-3 space-y-1 sm:px-3">
             <a href="/"
-                class="text-gray-500 hover:text-gray-700 block px-3 py-2 rounded-md text-base font-medium">Home</a>
+                class="text-gray-500 hover:text-gray-700 block px-3 py-2 rounded-md text-base font-medium" wire:navigate.hover>Home</a>
             @if (Auth::check())
                 <a href="/dashboard"
-                    class="text-gray-500 hover:text-gray-700 block px-3 py-2 rounded-md text-base font-medium">Dashboard</a>
+                    class="text-gray-500 hover:text-gray-700 block px-3 py-2 rounded-md text-base font-medium" wire:navigate.hover>Dashboard</a>
                 <button wire:click="logout"
                     class="w-full text-left text-gray-500 hover:text-gray-700 block px-3 py-2 rounded-md text-base font-medium">Logout</button>
             @else
                 <a href="/login"
-                    class="text-gray-500 hover:text-gray-700 block px-3 py-2 rounded-md text-base font-medium">Login</a>
+                    class="text-gray-500 hover:text-gray-700 block px-3 py-2 rounded-md text-base font-medium" wire:navigate.hover>Login</a>
                 <a href="/register"
-                    class="text-gray-500 hover:text-gray-700 block px-3 py-2 rounded-md text-base font-medium">Register</a>
+                    class="text-gray-500 hover:text-gray-700 block px-3 py-2 rounded-md text-base font-medium" wire:navigate.hover>Register</a>
             @endif
         </div>
     </div>
