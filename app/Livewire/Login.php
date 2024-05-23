@@ -16,17 +16,30 @@ class Login extends Component
         'password' => 'required',
     ];
 
+    /**
+     * login
+     *
+     * @return void
+     */
     public function login()
     {
         $this->validate();
 
-        if (Auth::attempt(['email' => $this->email, 'password' => $this->password], $this->remember)) {
-            return redirect()->intended('/tampil');
+        $user = Auth::attempt(['email' => $this->email, 'password' => $this->password], $this->remember);
+
+        if ($user) {
+            return redirect()->intended('services');
         }
 
         session()->flash('error', 'Invalid credentials');
+        return redirect()->route('login');
     }
 
+    /**
+     * render
+     *
+     * @return void
+     */
     public function render()
     {
         return view('livewire.login');

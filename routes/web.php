@@ -3,10 +3,16 @@
 use App\Http\Middleware\RedirectIfAuthenticated;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
+<<<<<<< HEAD
 use App\Http\Controllers\ServicesController;
 
+=======
+use App\Http\Middleware\EnsureUserIsAuthenticated;
+>>>>>>> f774bebad2769e656f70abade299f75953671626
 use App\Livewire\Login;
 use App\Livewire\Register;
+use App\Livewire\Services;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -25,9 +31,9 @@ Route::middleware([RedirectIfAuthenticated::class])->group(function () {
     Route::get('/register', Register::class)->name('register');
 });
 
-Route::get('tampil', function () {
-    return 'Berhasil login regis';
-})->middleware('auth');
+Route::middleware([EnsureUserIsAuthenticated::class])->group(function () {
+    Route::get('/services', Services::class)->name('services');
+});
 
 // ================================================================
 //POSTMAN

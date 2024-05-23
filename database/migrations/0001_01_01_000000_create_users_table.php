@@ -21,7 +21,7 @@ return new class extends Migration {
             $table->string('password');
             $table->string('phone_number');
             $table->enum('role', ['seller', 'customer']);
-            $table->string('image')->nullable()->default("default.jpg");
+            $table->string('image')->nullable()->default('default.jpg');
             $table->rememberToken();
             $table->timestamps();
         });
