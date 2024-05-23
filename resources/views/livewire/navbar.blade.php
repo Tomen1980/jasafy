@@ -1,5 +1,5 @@
 <div x-data="{ open: false }" class="bg-white shadow sticky top-0 z-50">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="container mx-auto px-4 sm:px-6 lg:px-8">
         <div class="flex justify-between h-20">
             <div class="flex">
                 <div class="-ml-2 mr-2 flex items-center md:hidden">
