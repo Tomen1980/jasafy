@@ -34,7 +34,7 @@ class DatabaseSeeder extends Seeder
             'email' => "pahuger@gmail.com",
             'password' => Hash::make("pahuger"),
             'phone_number' => "08123456789",
-            'role' => 'Seller',
+            'role' => 'seller',
             'image' => 'default.jpg'
         ]);
     }

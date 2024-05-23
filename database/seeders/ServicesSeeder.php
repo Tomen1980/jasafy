@@ -72,6 +72,7 @@ class ServicesSeeder extends Seeder
             'location' => 'Jakarta',
             'maps' => 'https://maps.app.goo.gl/pGdiKvaN888vuJnEA',
             'image' => 'defaultService.jpg',
+            
         ]);
     }
 }
