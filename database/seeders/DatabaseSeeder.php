@@ -24,7 +24,8 @@ class DatabaseSeeder extends Seeder
             'email' => "johndev@gmail.com",
             'password' => Hash::make("johndev"),
             'phone_number' => "08123456789",
-            'role' => 'customer'
+            'role' => 'customer',
+            'image' => 'default.jpg'
         ]);
 
         User::create([
@@ -33,7 +34,8 @@ class DatabaseSeeder extends Seeder
             'email' => "pahuger@gmail.com",
             'password' => Hash::make("pahuger"),
             'phone_number' => "08123456789",
-            'role' => 'Seller'
+            'role' => 'Seller',
+            'image' => 'default.jpg'
         ]);
     }
 }

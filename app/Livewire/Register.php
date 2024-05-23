@@ -5,6 +5,7 @@ namespace App\Livewire;
 use App\Models\User;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Validator;
 use Livewire\Component;
 
 class Register extends Component
@@ -25,9 +26,9 @@ class Register extends Component
     //     'phone_number' => 'required|string|min:6',
     // ];
 
-
     public function register()
     {
+
         $validation = $this->validate([
             'name' => 'required|string|max:255',
             'username' => 'required|string|min:3|max:255',
@@ -37,13 +38,13 @@ class Register extends Component
             'phone_number' => 'required|string|min:6',
         ]);
 
-        $checkEmail = User::where('email', $validation['email'])->first();
-        $checkUser = User::where('username', $validation['username'])->first();
+        $checkEmail = User::where('email', $this->email)->first();
+        $checkUser = User::where('username', $this->username)->first();
         if ($checkEmail) {
             return redirect('/register')->with('error', 'Email already exists!');
         }else if($checkUser){
             return redirect('/register')->with('error', 'Username already exists!');
-        }else if($validation['password'] != $validation['password_confirmation']){
+        }else if($this->password != $this->password_confirmation){
             return redirect('/register')->with('error', 'Password doesn\'t match!');
         }
 

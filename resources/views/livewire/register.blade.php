@@ -43,6 +43,7 @@
                         @error('username')
                             <span class="text-red-500 text-sm">{{ $message }}</span>
                         @enderror
+           
                     </div>
                     <div>
                         <label for="email" class="sr-only">Email address</label>
