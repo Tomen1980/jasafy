@@ -15,7 +15,7 @@
             @endif
 
             @if ($errors->any())
-            <div class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative" role="alert">
+                <div class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative" role="alert">
                     <ul>
                         @foreach ($errors->all() as $error)
                             <li>{{ $error }}</li>
@@ -23,7 +23,7 @@
                     </ul>
                 </div>
             @endif
-            
+
             <form class="mt-8 space-y-6" wire:submit.prevent="register">
                 <div class="rounded-md shadow-sm -space-y-px">
                     <div>
@@ -43,7 +43,7 @@
                         @error('username')
                             <span class="text-red-500 text-sm">{{ $message }}</span>
                         @enderror
-           
+
                     </div>
                     <div>
                         <label for="email" class="sr-only">Email address</label>

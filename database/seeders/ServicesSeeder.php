@@ -14,7 +14,7 @@ class ServicesSeeder extends Seeder
     public function run(): void
     {
         Service::create([
-            'user_id' => 1,
+            'user_id' => 2,
             'category_id' => 1,
             'title' => 'Service 1',
             'description' => 'Ini jasa tentang service 1',
@@ -24,7 +24,7 @@ class ServicesSeeder extends Seeder
             'image' => 'defaultService.jpg',
         ]);
         Service::create([
-            'user_id' => 1,
+            'user_id' => 2,
             'category_id' => 2,
             'title' => 'Service 2',
             'description' => 'Ini jasa tentang service 1',
@@ -34,7 +34,7 @@ class ServicesSeeder extends Seeder
             'image' => 'defaultService.jpg',
         ]);
         Service::create([
-            'user_id' => 1,
+            'user_id' => 2,
             'category_id' => 3,
             'title' => 'Service 3',
             'description' => 'Ini jasa tentang service 1',
@@ -44,7 +44,7 @@ class ServicesSeeder extends Seeder
             'image' => 'defaultService.jpg',
         ]);
         Service::create([
-            'user_id' => 1,
+            'user_id' => 2,
             'category_id' => 4,
             'title' => 'Service 4',
             'description' => 'Ini jasa tentang service 1',
@@ -54,7 +54,7 @@ class ServicesSeeder extends Seeder
             'image' => 'defaultService.jpg',
         ]);
         Service::create([
-            'user_id' => 1,
+            'user_id' => 2,
             'category_id' => 5,
             'title' => 'Service 5',
             'description' => 'Ini jasa tentang service 1',
@@ -64,7 +64,7 @@ class ServicesSeeder extends Seeder
             'image' => 'defaultService.jpg',
         ]);
         Service::create([
-            'user_id' => 1,
+            'user_id' => 2,
             'category_id' => 6,
             'title' => 'Service 6',
             'description' => 'Ini jasa tentang service 1',

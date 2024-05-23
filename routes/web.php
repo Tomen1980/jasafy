@@ -3,6 +3,7 @@
 use App\Http\Middleware\RedirectIfAuthenticated;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\ServicesController;
 
 use App\Livewire\Login;
 use App\Livewire\Register;
@@ -44,4 +45,11 @@ route::middleware('auth')->group(function () {
     route::put('/auth/profile', [AuthController::class, 'updateProfile']);
     // Get Profile
     route::get('/auth/profile', [AuthController::class, 'getProfile']);
+
+    // Services All
+    Route::get('/services', [ServicesController::class, 'index']);
+    // Detail Services
+    Route::get('/services/id={id}', [ServicesController::class, 'getServices']);
+    // get Services By Id User Seller
+    Route::get('/services/seller', [ServicesController::class, 'getServicesByUserId']);
 });
