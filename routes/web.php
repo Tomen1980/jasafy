@@ -3,12 +3,9 @@
 use App\Http\Middleware\RedirectIfAuthenticated;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
-<<<<<<< HEAD
-use App\Http\Controllers\ServicesController;
+// use App\Http\Controllers\ServicesController;
 
-=======
 use App\Http\Middleware\EnsureUserIsAuthenticated;
->>>>>>> f774bebad2769e656f70abade299f75953671626
 use App\Livewire\Login;
 use App\Livewire\Register;
 use App\Livewire\Services;
