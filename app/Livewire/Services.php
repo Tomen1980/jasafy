@@ -24,7 +24,7 @@ class Services extends Component
     //     'location' => 'required|string|max:255',
     //     'maps' => 'required|string|max:255',
     //     'categoryId' => 'required',
-    //     'image' => 'required|image|max:1024',
+        // 'image' => 'nullable|image|max:1024',
     // ];
 
     public function render()
@@ -104,12 +104,12 @@ class Services extends Component
     public function update()
     {
         $this->validate([
-            'title' => 'required|string|max:255',
+            'title' => 'required|string|min:3|max:255',
             'description' => 'required|string',
             'price' => 'required|numeric',
             'location' => 'required|string|max:255',
             'maps' => 'required|string|max:255',
-            // 'image' => 'nullable|image|max:1024',
+            'image' => 'nullable|mimes:jpg,jpeg,png|max:1024',
         ]);
 
         $dataOld = Service::where('id', $this->serviceId)->first();
@@ -121,7 +121,10 @@ class Services extends Component
         }
 
         if($this->image !== $dataOld->image){
-            Storage::delete('public/'.$dataOld->image);
+
+            if($this->image !== "defaultSevice.jpg"){
+                Storage::delete('public/'.$dataOld->image);
+            }
             $imagePath = $this->image->store('services', 'public');
         }else{
             $imagePath = $dataOld->image;
