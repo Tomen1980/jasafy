@@ -18,16 +18,6 @@ class Services extends Component
     public $isModalOpen = false;
     public $isConfirming = false;
 
-    // protected $rules = [
-    //     'title' => 'required|string|max:255',
-    //     'description' => 'required|string',
-    //     'price' => 'required|numeric',
-    //     'location' => 'required|string|max:255',
-    //     'maps' => 'required|string|max:255',
-    //     'categoryId' => 'required',
-    // 'image' => 'nullable|image|max:1024',
-    // ];
-
     public function render()
     {
         $this->services = Service::all();
@@ -43,12 +33,6 @@ class Services extends Component
     public function openModal()
     {
         $this->isModalOpen = true;
-    }
-
-    public function closeModal()
-    {
-        $this->resetInputFields();
-        $this->isModalOpen = false;
     }
 
     public function resetInputFields()
@@ -87,9 +71,8 @@ class Services extends Component
             'image' => $imagePath,
         ]);
 
-        session()->flash('message', 'Service created successfully.');
+        session()->flash('success', 'Service created successfully.');
 
-        // $this->closeModal();
         $this->resetInputFields();
     }
 
@@ -131,9 +114,7 @@ class Services extends Component
             'image' => $imagePath,
         ]);
 
-        session()->flash('message', 'Service updated successfully.');
-
-        $this->closeModal();
+        session()->flash('success', 'Service updated successfully.');
     }
 
     public function edit($id)

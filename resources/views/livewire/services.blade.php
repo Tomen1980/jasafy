@@ -26,6 +26,18 @@
             alt="service" class="lg:hidden object-cover w-full h-full absolute inset-0 m-auto">
     </div>
 
+    @if (session()->has('success'))
+        <div class="bg-green-100 border border-green-400 text-green-700 px-4 py-3 rounded relative container mx-auto mt-4" role="alert">
+            <span class="block sm:inline">{{ session('success') }}</span>
+        </div>
+    @endif
+
+    @if (session()->has('error'))
+        <div class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative container mx-auto mt-4" role="alert">
+            <span class="block sm:inline">{{ session('error') }}</span>
+        </div>
+    @endif
+
     <div class="container mx-auto px-4 py-6">
         <div class="flex justify-between items-center">
             <h1 class="text-2xl font-bold">Services</h1>
@@ -37,9 +49,9 @@
 
         <div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6 mt-6">
             @foreach ($services as $service)
-                <div class="bg-white p-4 rounded-lg border" wire:key={{ $service->id }}>
-                    <div class="h-44 relative w-full group">
-                        <img src="{{ $service->image === "defaultService.jpg" ? Storage::url('services/') . $service->image : Storage::url($service->image) }}"
+                <div class="bg-white p-4 rounded-lg border group" wire:key={{ $service->id }}>
+                    <div class="h-44 relative w-full">
+                        <img src="{{ $service->image === 'defaultService.jpg' ? Storage::url('services/') . $service->image : Storage::url($service->image) }}"
                             alt="{{ $service->title }}" class="w-full h-full object-cover rounded-md">
                         <div
                             class="bg-black/50 absolute hidden inset-0 m-auto rounded-md group-hover:flex items-center justify-center">
@@ -70,29 +82,32 @@
                 </div>
             @endforeach
         </div>
-        <div x-show="openModal" class="fixed inset-0 bg-gray-600 bg-opacity-50 flex justify-center items-center">
-            <div class="bg-white p-6 rounded-lg shadow-lg w-1/2">
+        <div x-show="openModal" class="fixed inset-0 bg-gray-600 bg-opacity-50 flex justify-center items-center z-[99]">
+            <div class="bg-white p-6 rounded-lg shadow-lg w-full md:w-1/2">
                 <h2 class="text-2xl font-bold mb-4" x-text="isEditing ? 'Edit Service' : 'Add Service'"></h2>
                 {{-- Store --}}
-                <form class="grid grid-cols-2 gap-6" wire:submit.prevent="store" x-show="!isEditing">
+                <form class="grid grid-cols-1 md:grid-cols-2 gap-6" wire:submit.prevent="store" x-show="!isEditing">
                     <div>
                         <div class="mb-4">
                             <label class="block text-gray-700">Title</label>
-                            <input type="text" wire:model="title" class="appearance-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-md focus:outline-none focus:ring-[#33CD99] focus:border-[#33CD99] focus:z-10">
+                            <input type="text" wire:model="title"
+                                class="appearance-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-md focus:outline-none focus:ring-[#33CD99] focus:border-[#33CD99] focus:z-10">
                             @error('title')
                                 <span class="text-red-500">{{ $message }}</span>
                             @enderror
                         </div>
                         <div class="mb-4">
                             <label class="block text-gray-700">Description</label>
-                            <textarea wire:model="description" class="appearance-none relative block min-h-20 max-h-40 w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-md focus:outline-none focus:ring-[#33CD99] focus:border-[#33CD99] focus:z-10"></textarea>
+                            <textarea wire:model="description"
+                                class="appearance-none relative block min-h-20 max-h-40 w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-md focus:outline-none focus:ring-[#33CD99] focus:border-[#33CD99] focus:z-10"></textarea>
                             @error('description')
                                 <span class="text-red-500">{{ $message }}</span>
                             @enderror
                         </div>
                         <div class="mb-4">
                             <label class="block text-gray-700">Categories</label>
-                            <select id="category" wire:model.live="categoryId" class="appearance-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-md focus:outline-none focus:ring-[#33CD99] focus:border-[#33CD99] focus:z-10 select2">
+                            <select id="category" wire:model.live="categoryId"
+                                class="appearance-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-md focus:outline-none focus:ring-[#33CD99] focus:border-[#33CD99] focus:z-10 select2">
                                 <option value="" selected>--Choose--</option>
                                 @foreach ($categories as $as)
                                     <option value="{{ $as->id }}">{{ $as->name }}</option>
@@ -104,7 +119,8 @@
                         </div>
                         <div class="mb-4">
                             <label class="block text-gray-700">Location</label>
-                            <input type="text" wire:model="location" class="appearance-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-md focus:outline-none focus:ring-[#33CD99] focus:border-[#33CD99] focus:z-10">
+                            <input type="text" wire:model="location"
+                                class="appearance-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-md focus:outline-none focus:ring-[#33CD99] focus:border-[#33CD99] focus:z-10">
                             @error('location')
                                 <span class="text-red-500">{{ $message }}</span>
                             @enderror
@@ -113,21 +129,24 @@
                     <div>
                         <div class="mb-4">
                             <label class="block text-gray-700">Maps</label>
-                            <input type="text" wire:model="maps" class="appearance-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-md focus:outline-none focus:ring-[#33CD99] focus:border-[#33CD99] focus:z-10">
+                            <input type="text" wire:model="maps"
+                                class="appearance-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-md focus:outline-none focus:ring-[#33CD99] focus:border-[#33CD99] focus:z-10">
                             @error('maps')
                                 <span class="text-red-500">{{ $message }}</span>
                             @enderror
                         </div>
                         <div class="mb-4">
                             <label class="block text-gray-700">Price</label>
-                            <input type="number" wire:model="price" class="appearance-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-md focus:outline-none focus:ring-[#33CD99] focus:border-[#33CD99] focus:z-10">
+                            <input type="number" wire:model="price"
+                                class="appearance-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-md focus:outline-none focus:ring-[#33CD99] focus:border-[#33CD99] focus:z-10">
                             @error('price')
                                 <span class="text-red-500">{{ $message }}</span>
                             @enderror
                         </div>
                         <div class="mb-4">
                             <label class="block text-gray-700">Image</label>
-                            <input type="file" wire:model="image" class="appearance-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-md focus:outline-none focus:ring-[#33CD99] focus:border-[#33CD99] focus:z-10">
+                            <input type="file" wire:model="image"
+                                class="appearance-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-md focus:outline-none focus:ring-[#33CD99] focus:border-[#33CD99] focus:z-10">
                             @error('image')
                                 <span class="text-red-500">{{ $message }}</span>
                             @enderror
@@ -135,7 +154,8 @@
                         <div class="flex justify-end">
                             <button @click="openModal = false"
                                 class="bg-gray-500 text-white px-4 py-2 rounded mr-2">Cancel</button>
-                            <button type="submit" class="bg-blue-500 text-white px-4 py-2 rounded" @click="openModal = false;">Add</button>
+                            <button type="submit" class="bg-blue-500 text-white px-4 py-2 rounded"
+                                @click="openModal = false;">Add</button>
                         </div>
                     </div>
                 </form>
@@ -155,7 +175,9 @@
                         </div>
                         <div class="mb-4">
                             <label class="block text-gray-700">Description</label>
-                            <textarea wire:model="description" class="appearance-none relative max-h-40 min-h-20 block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-md focus:outline-none focus:ring-[#33CD99] focus:border-[#33CD99] focus:z-10" name="description" id="description"></textarea>
+                            <textarea wire:model="description"
+                                class="appearance-none relative max-h-40 min-h-20 block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-md focus:outline-none focus:ring-[#33CD99] focus:border-[#33CD99] focus:z-10"
+                                name="description" id="description"></textarea>
                             @error('description')
                                 <span class="text-red-500">{{ $message }}</span>
                             @enderror
@@ -174,7 +196,8 @@
                         </div>
                         <div class="mb-4">
                             <label class="block text-gray-700">Location</label>
-                            <input type="text" wire:model="location" class="appearance-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-md focus:outline-none focus:ring-[#33CD99] focus:border-[#33CD99] focus:z-10"
+                            <input type="text" wire:model="location"
+                                class="appearance-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-md focus:outline-none focus:ring-[#33CD99] focus:border-[#33CD99] focus:z-10"
                                 name="location" id="location">
                             @error('location')
                                 <span class="text-red-500">{{ $message }}</span>
@@ -184,24 +207,27 @@
                     <div>
                         <div class="mb-4">
                             <label class="block text-gray-700">Maps</label>
-                            <input type="text" wire:model="maps" class="appearance-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-md focus:outline-none focus:ring-[#33CD99] focus:border-[#33CD99] focus:z-10" name="maps"
-                                id="maps">
+                            <input type="text" wire:model="maps"
+                                class="appearance-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-md focus:outline-none focus:ring-[#33CD99] focus:border-[#33CD99] focus:z-10"
+                                name="maps" id="maps">
                             @error('maps')
                                 <span class="text-red-500">{{ $message }}</span>
                             @enderror
                         </div>
                         <div class="mb-4">
                             <label class="block text-gray-700">Price</label>
-                            <input type="number" wire:model="price" class="appearance-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-md focus:outline-none focus:ring-[#33CD99] focus:border-[#33CD99] focus:z-10" name="price"
-                                id="price">
+                            <input type="number" wire:model="price"
+                                class="appearance-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-md focus:outline-none focus:ring-[#33CD99] focus:border-[#33CD99] focus:z-10"
+                                name="price" id="price">
                             @error('price')
                                 <span class="text-red-500">{{ $message }}</span>
                             @enderror
                         </div>
                         <div class="mb-4">
                             <label class="block text-gray-700">Image</label>
-                            <input type="file" wire:model="image" class="appearance-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-md focus:outline-none focus:ring-[#33CD99] focus:border-[#33CD99] focus:z-10" name="image"
-                                id="image">
+                            <input type="file" wire:model="image"
+                                class="appearance-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-md focus:outline-none focus:ring-[#33CD99] focus:border-[#33CD99] focus:z-10"
+                                name="image" id="image">
                             @error('image')
                                 <span class="text-red-500">{{ $message }}</span>
                             @enderror
@@ -209,7 +235,8 @@
                         <div class="flex justify-end">
                             <button @click="openModal = false;"
                                 class="bg-gray-500 text-white px-4 py-2 rounded mr-2">Cancel</button>
-                            <button type="submit" class="bg-blue-500 text-white px-4 py-2 rounded" @click="openModal = false;">Update</button>
+                            <button type="submit" class="bg-blue-500 text-white px-4 py-2 rounded"
+                                @click="openModal = false;">Update</button>
                         </div>
                     </div>
                 </form>
@@ -217,7 +244,7 @@
         </div>
 
         {{-- End Update --}}
-        
+
         <!-- Delete Confirmation Modal -->
         <div x-show="confirmingDeletion"
             class="fixed inset-0 bg-gray-600 bg-opacity-50 flex justify-center items-center z-[99]">
