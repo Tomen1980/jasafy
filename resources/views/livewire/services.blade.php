@@ -93,6 +93,7 @@
                         <div class="mb-4">
                             <label class="block text-gray-700">Categories</label>
                             <select id="category" wire:model.live="categoryId" class="appearance-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-md focus:outline-none focus:ring-[#33CD99] focus:border-[#33CD99] focus:z-10 select2">
+                                <option value="" selected>--Choose--</option>
                                 @foreach ($categories as $as)
                                     <option value="{{ $as->id }}">{{ $as->name }}</option>
                                 @endforeach
