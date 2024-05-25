@@ -4,6 +4,20 @@
     <div class="h-full flex flex-col items-center justify-center bg-gray-100 py-12 px-4 sm:px-6 lg:px-8">
         <div class="max-w-md w-full space-y-8">
             <h2 class="mt-6 text-center text-3xl font-extrabold text-gray-900">Create a new account</h2>
+            <div class="w-fit" x-data="{ is_seller: @entangle('is_seller') }">
+                <label for="toggle" class="flex items-center cursor-pointer">
+                    <div class="relative">
+                        <input id="toggle" type="checkbox" class="sr-only" x-model="is_seller" @change="$wire.toggle(); is_seller = !is_seller">
+                        <div class="block bg-gray-600 w-14 h-8 rounded-full"></div>
+                        <div class="dot absolute left-1 top-1 bg-white w-6 h-6 rounded-full transition"
+                            :class="{ 'transform translate-x-full bg-green-500': is_seller, 'bg-gray-400': !is_seller }">
+                        </div>
+                    </div>
+                    <div class="ml-3 text-gray-700 font-medium">
+                        <span x-text="is_seller ? 'Seller' : 'Customer'"></span>
+                    </div>
+                </label>
+            </div>
             @if (session()->has('error'))
                 <div class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative" role="alert">
                     <span class="block sm:inline">{{ session('error') }}</span>

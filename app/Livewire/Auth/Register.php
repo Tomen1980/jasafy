@@ -29,6 +29,9 @@ class Register extends Component
     /** @var string */
     public $phone_number = '';
 
+    /** @var boolean */
+    public $is_seller = false;
+
     public function register()
     {
         $this->validate([
@@ -45,7 +48,7 @@ class Register extends Component
             'email' => $this->email,
             'password' => Hash::make($this->password),
             'phone_number' => $this->phone_number,
-            'role' => 'customer',
+            'role' => $this->is_seller ? 'seller' : 'customer',
         ]);
 
         event(new Registered($user));
@@ -53,6 +56,11 @@ class Register extends Component
         Auth::login($user, true);
 
         return redirect()->intended(route('home'));
+    }
+
+    public function toggle()
+    {
+        $this->is_seller = !$this->is_seller;
     }
 
     public function render()

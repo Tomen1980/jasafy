@@ -12,9 +12,6 @@ class CartManager extends Component
 
     public function mount()
     {
-        if("customer" !== Auth::user()->role){
-            return redirect("/");
-        }
         $this->loadCarts();
     }
 
@@ -33,6 +30,22 @@ class CartManager extends Component
             $this->loadCarts();
         } else {
             session()->flash('error', "Error removing an item from Cart!!");
+        }
+    }
+
+    public function addToCart($serviceId){
+        // return dd($serviceId);
+        $cart = Cart::where("service_id",$serviceId)->where("user_id",Auth::id())->exists();
+        if($cart){
+            session()->flash('error', "The same item is in the cart");
+            return redirect('/cart')->with('error', "The same item is in the cart");
+        }else{
+            Cart::create([
+                "user_id" => Auth::id(),
+                "service_id" => $serviceId
+            ]);
+            session()->flash('success', "add an item from Cart successfully!!");
+            return redirect('/cart')->with('success', "add an item from Cart successfully!!");
         }
     }
 

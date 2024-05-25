@@ -6,6 +6,7 @@ use App\Models\User;
 use Livewire\Component;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Storage;
 use Livewire\WithFileUploads;
 
 class Profile extends Component
@@ -58,6 +59,9 @@ class Profile extends Component
         $user->phone_number = $this->phone_number;
 
         if ($this->new_image) {
+            if($this->image !== "default.jpg"){
+                Storage::delete($user->image);
+            }
             $path = $this->new_image->store('public/user');
             $user->image = $path;
         }

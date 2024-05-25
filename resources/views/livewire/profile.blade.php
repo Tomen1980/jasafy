@@ -23,7 +23,7 @@
                             @if ($new_image)
                                 <img src="{{ $new_image->temporaryUrl() }}" class="mt-2 h-20 w-20 rounded-full">
                             @elseif($image)
-                                <img src="{{ Storage::url('user/') . $image }}" class="mt-2 h-20 w-20 rounded-full"
+                                <img src="{{$image == "default.jpg" ? Storage::url('profile/default.jpg') :Storage::url($image) }}" class="mt-2 h-20 w-20 rounded-full"
                                     alt={{ $name }}>
                             @endif
                         </div>

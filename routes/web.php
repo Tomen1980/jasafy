@@ -47,7 +47,7 @@ Route::middleware('auth')->group(function () {
     Route::get('profile', Profile::class)->name('profile');
     Route::get('services', Services::class)->name('services');
     Route::get('/service/{serviceId}', ServiceDetail::class)->name('service.detail');
-    Route::get('/cart', CartManager::class)->name('cart-manager');
+    Route::get('/cart', CartManager::class)->name('cart-manager')->middleware('role:customer');
 });
 
 Route::middleware('auth')->group(function () {

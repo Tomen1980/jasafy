@@ -25,7 +25,7 @@
                     class="font-medium rounded-md py-3 px-9 bg-gray-200 hover:bg-gray-500 hover:text-white focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-[#33CD99]">Chat</button>
             </div>
         </div>
-        <img src="{{ Storage::url('service/') . $service->image }}" alt="{{ $service->title }}"
+        <img src="{{ $service->image == "defaultService.jpg" ? Storage::url('public/services/') . $service->image :  Storage::url($service->image)}}" alt="{{ $service->title }}"
             class="mb-4 w-full lg:w-[36rem] xl:w-[44rem] object-cover h-96 lg:h-[32rem] lg:ml-auto rounded">
     </div>
     {{-- <h3 class="text-xl font-bold mb-2">Ratings</h3>
