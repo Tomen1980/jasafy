@@ -12,9 +12,6 @@ class CartManager extends Component
 
     public function mount()
     {
-        if("customer" !== Auth::user()->role){
-            return redirect("/");
-        }
         $this->loadCarts();
     }
 
