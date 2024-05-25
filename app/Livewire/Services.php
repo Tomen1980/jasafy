@@ -2,8 +2,10 @@
 
 namespace App\Livewire;
 
+use App\Models\Category;
 use App\Models\Service;
 
+use Illuminate\Support\Facades\Storage;
 use Livewire\Component;
 use Livewire\WithFileUploads;
 
@@ -11,22 +13,24 @@ class Services extends Component
 {
     use WithFileUploads;
 
-    public $services, $serviceId, $title, $description, $price, $location, $maps, $image;
+    public $services, $categories, $categoryId, $serviceId, $title, $description, $price, $location, $maps, $image;
     public $isModalOpen = false;
     public $isConfirming = false;
 
-    protected $rules = [
-        'title' => 'required|string|max:255',
-        'description' => 'required|string',
-        'price' => 'required|numeric',
-        'location' => 'required|string|max:255',
-        'maps' => 'required|string|max:255',
-        'image' => 'required|image|max:1024',
-    ];
+    // protected $rules = [
+    //     'title' => 'required|string|max:255',
+    //     'description' => 'required|string',
+    //     'price' => 'required|numeric',
+    //     'location' => 'required|string|max:255',
+    //     'maps' => 'required|string|max:255',
+    //     'categoryId' => 'required',
+    //     'image' => 'required|image|max:1024',
+    // ];
 
     public function render()
     {
         $this->services = Service::all();
+        $this->categories = Category::all();
         return view('livewire.services')->extends('layouts.app');
     }
 
@@ -60,30 +64,86 @@ class Services extends Component
         $this->price = '';
         $this->location = '';
         $this->maps = '';
+        $this->categoryId = '';
         $this->image = '';
         $this->serviceId = null;
     }
 
     public function store()
     {
-        $this->validate();
+        $this->validate([
+            'title' => 'required|string|max:255',
+            'description' => 'required|string',
+            'price' => 'required|numeric',
+            'location' => 'required|string|max:255',
+            'maps' => 'required|string|max:255',
+            'image' => 'image|max:1024',
+        ]);
 
         $imagePath = $this->image->store('services', 'public');
 
-        Service::updateOrCreate(['id' => $this->serviceId], [
-            'title' => $this->title,
-            'description' => $this->description,
-            'price' => $this->price,
-            'location' => $this->location,
-            'maps' => $this->maps,
-            'image' => $imagePath,
-        ]);
+        Service::create(
+            [
+                'user_id' => auth()->user()->id,
+                'title' => $this->title,
+                'description' => $this->description,
+                'price' => $this->price,
+                'location' => $this->location,
+                'maps' => $this->maps,
+                'category_id' => $this->categoryId,
+                'image' => $imagePath,
+            ],
+        );
 
-        session()->flash('message', 
-            $this->serviceId ? 'Service updated successfully.' : 'Service created successfully.');
+        session()->flash('message','Service created successfully.');
 
         $this->closeModal();
         $this->resetInputFields();
+    }
+
+    public function update()
+    {
+        $this->validate([
+            'title' => 'required|string|max:255',
+            'description' => 'required|string',
+            'price' => 'required|numeric',
+            'location' => 'required|string|max:255',
+            'maps' => 'required|string|max:255',
+            // 'image' => 'nullable|image|max:1024',
+        ]);
+
+        $dataOld = Service::where('id', $this->serviceId)->first();
+        
+        if(!$this->categoryId){
+           $categoryIdData = $dataOld->category_id; 
+        }else{
+            $categoryIdData = $this->categoryId;
+        }
+
+        if($this->image !== $dataOld->image){
+            Storage::delete('public/'.$dataOld->image);
+            $imagePath = $this->image->store('services', 'public');
+        }else{
+            $imagePath = $dataOld->image;
+        }
+
+        Service::Where('id', $this->serviceId)->update(
+            [
+                'title' => $this->title,
+                'description' => $this->description,
+                'price' => $this->price,
+                'location' => $this->location,
+                'maps' => $this->maps,
+                'category_id' =>  $categoryIdData,
+                'image' => $imagePath,
+            ]
+           
+        );
+
+        session()->flash('message', 'Service updated successfully.');
+
+        $this->closeModal();
+        // $this->resetInputFields();
     }
 
     public function edit($id)
@@ -94,6 +154,7 @@ class Services extends Component
         $this->description = $service->description;
         $this->price = $service->price;
         $this->location = $service->location;
+        $this->categoryId = $service->categoryId;
         $this->maps = $service->maps;
         $this->image = $service->image;
 
@@ -102,6 +163,8 @@ class Services extends Component
 
     public function delete($id)
     {
+        $image = Service::find($id)->image;
+        Storage::delete('public/'.$image);
         Service::find($id)->delete();
         session()->flash('message', 'Service deleted successfully.');
         $this->isConfirming = false;

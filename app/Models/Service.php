@@ -16,6 +16,7 @@ class Service extends Model
         'description',
         'price',
         'location',
+        'maps',
         'image',
     ];
 
