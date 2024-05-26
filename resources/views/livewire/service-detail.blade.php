@@ -23,8 +23,8 @@
                         class="font-medium rounded-md text-white py-3 px-9 hover:to-[#33cd6e] to-[#33CD99] bg-gradient-to-r from-[#33cd6e] focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-[#33CD99]"
                         wire:click="placeOrder({{ $service->id }})">Order
                         now</button>
-                    <button
-                        class="font-medium rounded-md py-3 px-9 bg-gray-200 hover:bg-gray-500 hover:text-white focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-[#33CD99]">Chat</button>
+                    <a class="font-medium rounded-md py-3 px-9 bg-gray-200 hover:bg-gray-500 hover:text-white focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-[#33CD99]"
+                        target="_blank" rel="noopener noreferrer" href={{ 'https://wa.me/' . $service->user->phone_number }}>Chat</a>
                 @else
                     <button @click="showEditModal = true"
                         class="font-medium rounded-md text-white py-3 px-9 hover:to-[#33cd6e] to-[#33CD99] bg-gradient-to-r from-[#33cd6e] focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-[#33CD99]">

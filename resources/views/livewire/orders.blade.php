@@ -12,7 +12,7 @@
         <p class="text-gray-700 truncate">Product: <span class="font-semibold text-black">{{ $service->title }}</span></p>
 
         <img src="{{ $service->image === 'defaultService.jpg' ? Storage::url('services/') . $service->image : Storage::url($service->image) }}"
-                        alt="{{ $service->title }}" class="w-full h-96 object-cover">
+            alt="{{ $service->title }}" class="w-full h-96 object-cover">
 
         <div>
             <div class="py-4">
@@ -24,19 +24,27 @@
 
             <form wire:submit.prevent="store">
                 <!-- Drag and Drop Image Input -->
-                <div x-data="{ isDragging: false }" @drop.prevent="isDragging = false" @dragover.prevent="isDragging = true"
-                    @dragleave.prevent="isDragging = false" @click="$refs.fileInput.click()"
-                    :class="{ 'border-green-500': isDragging }"
+                <!-- Drag and Drop Image Input -->
+                <div x-data="{ isDragging: false, handleFiles(event) { $refs.fileInput.files = event.dataTransfer.files;
+                        $refs.fileInput.dispatchEvent(new Event('change', { bubbles: true })); } }" @drop.prevent="isDragging = false; handleFiles($event)"
+                    @dragover.prevent="isDragging = true" @dragleave.prevent="isDragging = false"
+                    @click="$refs.fileInput.click()" :class="{ 'border-green-500': isDragging }"
                     class="mb-4 border-dashed border-2 border-gray-300 p-6 rounded-md flex items-center justify-center cursor-pointer">
-                    <input type="file" accept="image/jpg, image/jpeg, image/png" wire:model="image" class="hidden"
-                        x-ref="fileInput">
-                    <div class="text-center">
+                    <input type="file" accept="image/jpg, image/jpeg, image/png, image/webp" wire:model="image"
+                        class="hidden" x-ref="fileInput">
+                    <div class="text-center" x-show="!$wire.image">
                         <p class="mb-2 text-gray-500">Drag and drop an image here, or click to select one</p>
-                        <p class="text-sm text-gray-400">Accepted formats: .jpg, .jpeg, .png</p>
+                        <p class="text-sm text-gray-400">Accepted formats: .jpg, .jpeg, .png, .webp</p>
                     </div>
+                    @if ($image)
+                        <div class="text-center">
+                            <p class="mb-2 text-gray-500">Selected Image: <span
+                                    class="font-semibold">{{ $image->getClientOriginalName() }}</span></p>
+                        </div>
+                    @endif
                 </div>
                 @error('image')
-                    <span class="text-red-500 text-xs italic">{{ $message }}</span>
+                    <span class="text-red-500 text-sm italic">{{ $message }}</span>
                 @enderror
 
                 <!-- Handle Loading State -->
@@ -93,6 +101,26 @@
                     style: 'currency',
                     currency: 'IDR'
                 }).format(this.price);
+            }
+        };
+    }
+
+    function fileUploadHandler() {
+        return {
+            isDragging: false,
+            image: null,
+            selectFile() {
+                this.$refs.fileInput.click();
+            },
+            handleDrop(event) {
+                this.isDragging = false;
+                this.handleFileChange(event);
+            },
+            handleFileChange(event) {
+                this.image = event.target.files[0];
+                if (this.image) {
+                    this.$refs.fileInput.dispatchEvent(new Event('input'));
+                }
             }
         };
     }

@@ -50,7 +50,7 @@ class Orders extends Component
     public function store()
     {
         $this->validate([
-            'image' => 'required|image|max:2048',
+            'image' => 'required|mimes:jpg,jpeg,png,webp|max:2048',
         ]);
 
         $imagePath = $this->image->store('payments', 'public');
