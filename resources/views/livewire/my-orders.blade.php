@@ -54,7 +54,7 @@
     </div>
 
     <!-- Modal -->
-    <div x-show="showModal" class="fixed inset-0 flex items-center justify-center z-50">
+    <div x-show="showModal" class="fixed inset-0 flex items-center justify-center z-[99]" @keydown.escape.window="showModal = false">
         <div class="fixed inset-0 bg-gray-800 opacity-50" @click="showModal = false"></div>
         <div
             class="bg-white rounded-lg overflow-hidden shadow-xl transform transition-all sm:max-w-lg sm:w-full max-h-[70vh] p-4">
@@ -69,7 +69,7 @@
                 </button>
             </div>
             <div class="mt-4 overflow-auto">
-                <img :src="receiptUrl" class="w-full h-full">
+                <img :src="receiptUrl" class="w-full h-full object-contain">
             </div>
         </div>
     </div>

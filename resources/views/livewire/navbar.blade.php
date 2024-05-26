@@ -17,9 +17,11 @@
                     </button>
                 </div>
                 <div class="flex-shrink-0 flex items-center">
-                    <a href={{ route('home') }}>
+                    <a href={{ route('home') }} wire:navigate>
                         <img alt="logo" class="h-16 w-16 md:h-[5rem] md:w-[5rem]"
                             src="{{ asset('logo.svg') }}" /></a>
+                    <a class="text-gray-500 hover:text-gray-700 px-3 py-2 rounded-md text-sm font-medium hidden md:block"
+                        href={{ route('services') }} wire:navigate>Services</a>
                 </div>
             </div>
             <div class="hidden md:flex md:items-center md:space-x-4">
@@ -45,7 +47,8 @@
                         <a class="text-gray-500 hover:text-gray-700 px-3 py-2 rounded-md text-sm font-medium"
                             href={{ route('orders') }}>Orders</a>
                     @endif
-                    <a href={{ route("profile") }} class="text-gray-500 hover:text-gray-700 px-3 py-2 rounded-md text-sm font-medium"
+                    <a href={{ route('profile') }}
+                        class="text-gray-500 hover:text-gray-700 px-3 py-2 rounded-md text-sm font-medium"
                         wire:navigate>Profile</a>
                     <button class="hover:text-white px-3 py-2 rounded-md text-sm font-medium text-red-500 hover:bg-red-500"
                         wire:click="logout">Logout</button>
@@ -66,6 +69,8 @@
             <a href={{ route('home') }}
                 class="text-gray-500 hover:text-gray-700 block px-3 py-2 rounded-md text-base font-medium"
                 wire:navigate>Home</a>
+            <a class="text-gray-500 hover:text-gray-700 block px-3 py-2 rounded-md text-base font-medium"
+                href={{ route('services') }}>Services</a>
             @auth
                 @if (Auth::user()->role === 'customer')
                     <a href={{ route('my-orders') }}
@@ -80,7 +85,7 @@
                         class="text-gray-500 hover:text-gray-700 block px-3 py-2 rounded-md text-base font-medium"
                         wire:navigate>Orders</a>
                 @endif
-                <a href={{ route("profile") }}
+                <a href={{ route('profile') }}
                     class="text-gray-500 hover:text-gray-700 block px-3 py-2 rounded-md text-base font-medium"
                     wire:navigate>Profile</a>
                 <button

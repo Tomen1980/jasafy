@@ -73,6 +73,10 @@ class Profile extends Component
             $user->image = $path;
         }
 
+        if ($this->new_password) {
+            $user->password = Hash::make($this->new_password);
+        }
+
         if (!$user->save()) {
             $this->addError('email', trans('auth.failed'));
             return;

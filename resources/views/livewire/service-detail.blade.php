@@ -1,6 +1,6 @@
-@section('title', 'Jasa - ' . $service->title)
+@section('title', $service->title)
 
-<div class="h-[calc(100vh-5rem)] w-full" x-data="serviceDetail({{ json_encode(['price' => $service->price, 'ratings' => $service->ratings]) }})">
+<div class="h-[calc(100vh-5rem)] w-full" x-data="serviceDetail({{ json_encode(['price' => $service->price, 'ratings' => $service->ratings, 'image' => $service->image === 'defaultService.jpg' ? Storage::url('services/defaultService.jpg') : Storage::url($service->image)]) }})">
     <div class="container mx-auto px-4 sm:px-6 lg:px-8 flex lg:items-center flex-col-reverse lg:flex-row w-full py-12">
         <div>
             <p class="text-[#9F4A22] mb-2 uppercase">Jasafy Product</p>
@@ -24,7 +24,8 @@
                         wire:click="placeOrder({{ $service->id }})">Order
                         now</button>
                     <a class="font-medium rounded-md py-3 px-9 bg-gray-200 hover:bg-gray-500 hover:text-white focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-[#33CD99]"
-                        target="_blank" rel="noopener noreferrer" href={{ 'https://wa.me/' . $service->user->phone_number }}>Chat</a>
+                        target="_blank" rel="noopener noreferrer"
+                        href={{ 'https://wa.me/' . $service->user->phone_number }}>Chat</a>
                 @else
                     <button @click="showEditModal = true"
                         class="font-medium rounded-md text-white py-3 px-9 hover:to-[#33cd6e] to-[#33CD99] bg-gradient-to-r from-[#33cd6e] focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-[#33CD99]">
@@ -35,10 +36,11 @@
         </div>
         <img src="{{ $service->image == 'defaultService.jpg' ? Storage::url('public/services/') . $service->image : Storage::url($service->image) }}"
             alt="{{ $service->title }}"
-            class="mb-4 w-full lg:w-[36rem] xl:w-[44rem] object-cover h-96 lg:h-[32rem] lg:ml-auto rounded">
+            class="mb-4 w-full lg:w-[36rem] xl:w-[44rem] object-cover h-96 lg:h-[32rem] lg:ml-auto rounded"
+            @click="showPreviewModal = true">
     </div>
 
-    <div x-show="showEditModal" @keydown.escape.window="showEditModal = false">
+    <div x-show="showEditModal" @keydown.escape.window="showEditModal = false" @click.self="showEditModal = false">
         <div x-cloak
             class="fixed inset-0 bg-gray-500/50 z-[99] overflow-y-auto h-screen flex justify-center items-center">
             <div class="bg-white rounded-lg shadow-lg p-4 w-full max-w-2xl">
@@ -68,14 +70,35 @@
             </div>
         </div>
     </div>
+
+    <!-- Preview Modal -->
+    <div x-show="showPreviewModal" @keydown.escape.window="showPreviewModal = false">
+        <div x-cloak
+            class="fixed inset-0 bg-gray-500/50 z-[99] overflow-y-auto h-screen flex justify-center items-center"
+            @click.self="showPreviewModal = false">
+            <div
+                class="bg-white rounded-lg shadow-lg p-4 w-full max-w-2xl max-h-[70vh] flex justify-center items-center relative">
+                <button @click="showPreviewModal = false" class="text-gray-400 hover:text-gray-500 absolute top-0 right-0 m-4">
+                    <svg class="h-6 w-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"
+                        xmlns="http://www.w3.org/2000/svg">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12">
+                        </path>
+                    </svg>
+                </button>
+                <img :src="imageSrc" alt="{{ $service->title }}" class="max-h-[70vh] object-contain">
+            </div>
+        </div>
+    </div>
 </div>
 
 <script>
     function serviceDetail(data) {
         return {
             showEditModal: false,
+            showPreviewModal: false,
             ratings: data.ratings,
             price: data.price,
+            imageSrc: data.image,
             get formattedPrice() {
                 return new Intl.NumberFormat('id-ID', {
                     style: 'currency',

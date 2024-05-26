@@ -20,7 +20,7 @@
                                 wire:model="new_image"
                                 class="mt-1 appearance-none block w-full border border-gray-300 placeholder-gray-500 text-gray-900 rounded-md focus:outline-none focus:ring-[#33CD99] focus:border-[#33CD99] shadow-sm p-2">
                             @error('new_image')
-                                <span class="text-red-500 text-sm">{{ $message }}</span>
+                                <span class="text-red-500 text-sm italic">{{ $message }}</span>
                             @enderror
                             @if ($new_image)
                                 <img src="{{ $new_image->temporaryUrl() }}" class="mt-2 h-20 w-20 rounded-full">
@@ -35,7 +35,7 @@
                             <input type="text" id="name" wire:model="name"
                                 class="mt-1 appearance-none block w-full border border-gray-300 placeholder-gray-500 text-gray-900 rounded-md focus:outline-none focus:ring-[#33CD99] focus:border-[#33CD99] shadow-sm p-2">
                             @error('name')
-                                <span class="text-red-500 text-sm">{{ $message }}</span>
+                                <span class="text-red-500 text-sm italic">{{ $message }}</span>
                             @enderror
                         </div>
 
@@ -44,7 +44,7 @@
                             <input type="text" id="username" wire:model="username"
                                 class="mt-1 appearance-none block w-full border border-gray-300 placeholder-gray-500 text-gray-900 rounded-md focus:outline-none focus:ring-[#33CD99] focus:border-[#33CD99] shadow-sm p-2">
                             @error('username')
-                                <span class="text-red-500 text-sm">{{ $message }}</span>
+                                <span class="text-red-500 text-sm italic">{{ $message }}</span>
                             @enderror
                         </div>
 
@@ -53,7 +53,7 @@
                             <textarea id="description" wire:model="description"
                                 class="mt-1 appearance-none block w-full border min-h-20 max-h-40 border-gray-300 placeholder-gray-500 text-gray-900 rounded-md focus:outline-none focus:ring-[#33CD99] focus:border-[#33CD99] shadow-sm p-2"></textarea>
                             @error('description')
-                                <span class="text-red-500 text-sm">{{ $message }}</span>
+                                <span class="text-red-500 text-sm italic">{{ $message }}</span>
                             @enderror
                         </div>
                     </div>
@@ -64,7 +64,7 @@
                             <input type="email" id="email" wire:model="email"
                                 class="mt-1 appearance-none block w-full border border-gray-300 placeholder-gray-500 text-gray-900 rounded-md focus:outline-none focus:ring-[#33CD99] focus:border-[#33CD99] shadow-sm p-2">
                             @error('email')
-                                <span class="text-red-500 text-sm">{{ $message }}</span>
+                                <span class="text-red-500 text-sm italic">{{ $message }}</span>
                             @enderror
                         </div>
 
@@ -73,7 +73,7 @@
                             <input type="text" id="phone_number" wire:model="phone_number"
                                 class="mt-1 appearance-none block w-full border border-gray-300 placeholder-gray-500 text-gray-900 rounded-md focus:outline-none focus:ring-[#33CD99] focus:border-[#33CD99] shadow-sm p-2">
                             @error('phone_number')
-                                <span class="text-red-500 text-sm">{{ $message }}</span>
+                                <span class="text-red-500 text-sm italic">{{ $message }}</span>
                             @enderror
                         </div>
 
@@ -83,7 +83,7 @@
                             <input type="password" id="current_password" wire:model="current_password"
                                 class="mt-1 appearance-none block w-full border border-gray-300 placeholder-gray-500 text-gray-900 rounded-md focus:outline-none focus:ring-[#33CD99] focus:border-[#33CD99] shadow-sm p-2">
                             @error('current_password')
-                                <span class="text-red-500 text-sm">{{ $message }}</span>
+                                <span class="text-red-500 text-sm italic">{{ $message }}</span>
                             @enderror
                         </div>
 
@@ -92,7 +92,7 @@
                             <input type="password" id="new_password" wire:model="new_password"
                                 class="mt-1 appearance-none block w-full border border-gray-300 placeholder-gray-500 text-gray-900 rounded-md focus:outline-none focus:ring-[#33CD99] focus:border-[#33CD99] shadow-sm p-2">
                             @error('new_password')
-                                <span class="text-red-500 text-sm">{{ $message }}</span>
+                                <span class="text-red-500 text-sm italic">{{ $message }}</span>
                             @enderror
                         </div>
 
@@ -102,7 +102,7 @@
                             <input type="password" id="passwordConfirmation" wire:model="passwordConfirmation"
                                 class="mt-1 appearance-none block w-full border border-gray-300 placeholder-gray-500 text-gray-900 rounded-md focus:outline-none focus:ring-[#33CD99] focus:border-[#33CD99] shadow-sm p-2">
                             @error('passwordConfirmation')
-                                <span class="text-red-500 text-sm">{{ $message }}</span>
+                                <span class="text-red-500 text-sm italic">{{ $message }}</span>
                             @enderror
                         </div>
                     </div>

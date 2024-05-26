@@ -58,7 +58,7 @@
     </div>
 
     <!-- Modal -->
-    <div x-show="showModal" class="fixed inset-0 flex items-center justify-center z-50">
+    <div x-show="showModal" class="fixed inset-0 flex items-center justify-center z-50" @keydown.escape.window="showModal = false">
         <div class="fixed inset-0 bg-gray-800 opacity-50" @click="showModal = false"></div>
         <div
             class="bg-white rounded-lg overflow-hidden shadow-xl transform transition-all sm:max-w-lg sm:w-full max-h-[70vh] p-4">
@@ -79,7 +79,7 @@
     </div>
 
     <!-- Confirmation Modal -->
-    <div x-show="showConfirm" class="fixed inset-0 flex items-center justify-center z-50">
+    <div x-show="showConfirm" class="fixed inset-0 flex items-center justify-center z-50" @keydown.escape.window="showConfirm = false">
         <div class="fixed inset-0 bg-gray-800 opacity-50" @click="showConfirm = false"></div>
         <div
             class="bg-white rounded-lg overflow-hidden shadow-xl transform transition-all sm:max-w-lg sm:w-full max-h-[70vh] p-4">
