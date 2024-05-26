@@ -11,11 +11,13 @@
             @endif
 
             @auth
-                <form class="grid grid-cols-1 md:grid-cols-2 gap-10" wire:submit.prevent="updateProfile" enctype="multipart/form-data">
+                <form class="grid grid-cols-1 md:grid-cols-2 gap-10" wire:submit.prevent="updateProfile"
+                    enctype="multipart/form-data">
                     <div>
                         <div class="mb-4">
                             <label for="new_image" class="block text-sm font-medium text-gray-700">Profile Image</label>
-                            <input type="file" id="new_image" wire:model="new_image"
+                            <input accept="image/jpeg, image/jpg, image/png, image/webp" type="file" id="new_image"
+                                wire:model="new_image"
                                 class="mt-1 appearance-none block w-full border border-gray-300 placeholder-gray-500 text-gray-900 rounded-md focus:outline-none focus:ring-[#33CD99] focus:border-[#33CD99] shadow-sm p-2">
                             @error('new_image')
                                 <span class="text-red-500 text-sm">{{ $message }}</span>
@@ -23,11 +25,11 @@
                             @if ($new_image)
                                 <img src="{{ $new_image->temporaryUrl() }}" class="mt-2 h-20 w-20 rounded-full">
                             @elseif($image)
-                                <img src="{{$image === "default.jpg" ? Storage::url('profiles/default.jpg') : Storage::url('profiles/') . $image }}" class="mt-2 h-20 w-20 object-cover rounded-full"
-                                    alt={{ $name }}>
+                                <img src="{{ $image === 'default.jpg' ? Storage::url('profiles/default.jpg') : Storage::url($image) }}"
+                                    class="mt-2 h-20 w-20 object-cover rounded-full" alt={{ $name }}>
                             @endif
                         </div>
-    
+
                         <div class="mb-4">
                             <label for="name" class="block text-sm font-medium text-gray-700">Name</label>
                             <input type="text" id="name" wire:model="name"
@@ -36,7 +38,7 @@
                                 <span class="text-red-500 text-sm">{{ $message }}</span>
                             @enderror
                         </div>
-    
+
                         <div class="mb-4">
                             <label for="username" class="block text-sm font-medium text-gray-700">Username</label>
                             <input type="text" id="username" wire:model="username"
@@ -45,7 +47,7 @@
                                 <span class="text-red-500 text-sm">{{ $message }}</span>
                             @enderror
                         </div>
-    
+
                         <div class="mb-4">
                             <label for="description" class="block text-sm font-medium text-gray-700">Description</label>
                             <textarea id="description" wire:model="description"
@@ -65,7 +67,7 @@
                                 <span class="text-red-500 text-sm">{{ $message }}</span>
                             @enderror
                         </div>
-    
+
                         <div class="mb-4">
                             <label for="phone_number" class="block text-sm font-medium text-gray-700">Phone Number</label>
                             <input type="text" id="phone_number" wire:model="phone_number"
@@ -74,17 +76,26 @@
                                 <span class="text-red-500 text-sm">{{ $message }}</span>
                             @enderror
                         </div>
-    
-    
+
+
                         <div class="mb-4">
-                            <label for="password" class="block text-sm font-medium text-gray-700">Password</label>
-                            <input type="password" id="password" wire:model="password"
+                            <label for="current_password" class="block text-sm font-medium text-gray-700">Old Password</label>
+                            <input type="password" id="current_password" wire:model="current_password"
                                 class="mt-1 appearance-none block w-full border border-gray-300 placeholder-gray-500 text-gray-900 rounded-md focus:outline-none focus:ring-[#33CD99] focus:border-[#33CD99] shadow-sm p-2">
-                            @error('password')
+                            @error('current_password')
                                 <span class="text-red-500 text-sm">{{ $message }}</span>
                             @enderror
                         </div>
-    
+
+                        <div class="mb-4">
+                            <label for="new_password" class="block text-sm font-medium text-gray-700">New Password</label>
+                            <input type="password" id="new_password" wire:model="new_password"
+                                class="mt-1 appearance-none block w-full border border-gray-300 placeholder-gray-500 text-gray-900 rounded-md focus:outline-none focus:ring-[#33CD99] focus:border-[#33CD99] shadow-sm p-2">
+                            @error('new_password')
+                                <span class="text-red-500 text-sm">{{ $message }}</span>
+                            @enderror
+                        </div>
+
                         <div class="mb-4">
                             <label for="passwordConfirmation" class="block text-sm font-medium text-gray-700">Confirm
                                 Password</label>
@@ -96,7 +107,8 @@
                         </div>
                     </div>
 
-                    <button type="submit" class="rounded hover:from-[#33CD99] to-[#33CD99] bg-gradient-to-r hover:to-[#33cd6e] from-[#33cd6e] text-white px-10 py-2 w-full text-center">Update
+                    <button type="submit"
+                        class="rounded hover:from-[#33CD99] to-[#33CD99] bg-gradient-to-r hover:to-[#33cd6e] from-[#33cd6e] text-white px-10 py-2 w-full text-center">Update
                         Profile</button>
                 </form>
             @endauth

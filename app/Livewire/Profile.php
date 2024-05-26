@@ -21,7 +21,8 @@ class Profile extends Component
     public $role;
     public $image;
     public $new_image;
-    public $password;
+    public $current_password;
+    public $new_password;
     public $passwordConfirmation;
 
     public function mount()
@@ -45,12 +46,18 @@ class Profile extends Component
             'username' => ['required', 'string', 'min:6', 'max:255', 'unique:users,username,' . $userId],
             'description' => ['nullable', 'string', 'max:255'],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users,email,' . $userId],
-            'password' => ['required', 'min:8', 'same:passwordConfirmation'],
             'phone_number' => ['required', 'string', 'min:6'],
             'new_image' => ['nullable', 'image', 'max:2048'],
+            'current_password' => ['required_with:new_password', 'min:8'],
+            'new_password' => ['nullable', 'min:8', 'same:passwordConfirmation'],
         ]);
 
         $user = User::findOrFail($userId);
+
+        if ($this->current_password && !Hash::check($this->current_password, $user->password)) {
+            $this->addError('current_password', 'The current password is incorrect.');
+            return;
+        }
 
         $user->name = $this->name;
         $user->username = $this->username;
@@ -64,10 +71,6 @@ class Profile extends Component
             }
             $path = $this->new_image->store('profiles', 'public');
             $user->image = $path;
-        }
-
-        if ($this->password) {
-            $user->password = Hash::make($this->password);
         }
 
         if (!$user->save()) {
