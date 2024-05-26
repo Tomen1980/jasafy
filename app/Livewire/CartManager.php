@@ -57,7 +57,7 @@ class CartManager extends Component
 
     public function placeOrder($serviceId)
     {
-        return redirect()->route("orders", ['q' => $serviceId]);
+        return redirect()->route("order", ['q' => $serviceId]);
     }
 
     public function render()

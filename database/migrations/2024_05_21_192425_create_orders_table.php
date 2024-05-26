@@ -4,8 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-return new class extends Migration
-{
+return new class extends Migration {
     /**
      * Run the migrations.
      */
@@ -13,9 +12,9 @@ return new class extends Migration
     {
         Schema::create('orders', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('user_id')->constrained()->onDelete('cascade')->onUpdate('cascade')->references("id")->on("users");
-            $table->foreignId('service_id')->constrained()->onDelete('cascade')->onUpdate('cascade')->references("id")->on("services");
-            $table->enum("status",["On Going","Completed","Done"])->default("On Going");
+            $table->foreignId('user_id')->constrained()->onDelete('cascade')->onUpdate('cascade')->references('id')->on('users');
+            $table->foreignId('service_id')->constrained()->onDelete('cascade')->onUpdate('cascade')->references('id')->on('services');
+            $table->enum('status', ['Pending', 'On Going', 'Completed', 'Cancelled'])->default('Pending');
             $table->float('total_price');
             $table->string('file_url');
             $table->boolean('is_paid')->default(false);

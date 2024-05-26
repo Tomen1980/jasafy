@@ -3,78 +3,46 @@
 namespace App\Livewire;
 
 use App\Models\Order;
-use App\Models\Service;
 use Livewire\Component;
-use Livewire\WithFileUploads;
 
 class Orders extends Component
 {
-    use WithFileUploads;
-
-    public $service_id, $order_id, $service, $user_id, $image;
-    public $isOpen = false;
-
+    public $orders;
     public function mount()
     {
-        $this->service_id = request()->query('q');
-        $this->service = Service::findOrFail($this->service_id);
+        $this->loadOrders();
     }
 
-    public function render()
+    public function loadOrders()
     {
-        return view('livewire.orders')->extends('layouts.app');
+        $this->orders = Order::with(['user', 'service'])
+            ->whereHas('service', function ($query) {
+                $query->where('user_id', auth()->id());
+            })
+            ->orderBy('status', 'desc')
+            ->get();
+        $this->formatPrices();
     }
 
-    public function create()
+    private function formatPrices()
     {
-        $this->resetInputFields();
-        $this->openModal();
-    }
-
-    public function openModal()
-    {
-        $this->isOpen = true;
-    }
-
-    public function closeModal()
-    {
-        $this->isOpen = false;
-    }
-
-    private function resetInputFields()
-    {
-        $this->user_id = '';
-        $this->image = '';
-    }
-
-    public function store()
-    {
-        $this->validate([
-            'image' => 'required|mimes:jpg,jpeg,png,webp|max:2048',
-        ]);
-
-        $imagePath = $this->image->store('payments', 'public');
-
-        Order::updateOrCreate(
-            ['id' => $this->order_id],
-            [
-                'user_id' => auth()->user()->id,
-                'total_price' => $this->service->price,
-                'file_url' => $imagePath,
-                'service_id' => $this->service_id,
-            ],
-        );
-
-        session()->flash('message', $this->order_id ? 'Order Updated Successfully.' : 'Order Created Successfully.');
-
-        if (!$this->order_id) {
-            $this->resetInputFields();
+        foreach ($this->orders as $order) {
+            $order->service->price = "Rp " . number_format($order->service->price, 2, ',', '.');
         }
     }
 
-    public function delete($id)
+    public function proceedStatus($orderId, $status)
     {
-        Order::find($id)->delete();
-        session()->flash('message', 'Order Deleted Successfully.');
+        Order::Where('id', $orderId)->update([
+            'status' => $status === "Pending" ? "On Going" : ($status === "On Going" ? "Completed" : "Cancelled"),
+        ]);
+        $this->loadOrders();
+
+        session()->flash('success', 'Status updated successfully.');
+    }
+    
+    public function render()
+    {
+        return view('livewire.orders')->extends('layouts.app');
     }
 }

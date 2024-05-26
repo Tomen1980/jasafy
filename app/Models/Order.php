@@ -23,8 +23,8 @@ class Order extends Model
         return $this->belongsTo(User::class);
     }
 
-    public function services()
+    public function service()
     {
-        return $this->belongsToMany(Service::class, 'order_service')->withPivot('quantity')->withTimestamps();
+        return $this->belongsTo(Service::class);
     }
 }

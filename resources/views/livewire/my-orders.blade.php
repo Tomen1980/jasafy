@@ -1,7 +1,7 @@
-@section('title', 'Incoming orders')
+@section('title', 'My orders')
 
-<div class="container mx-auto p-4" x-data="{ showModal: false, receiptUrl: '', showConfirm: false, orderId: null, status: '' }">
-    <h2 class="text-2xl font-bold mb-4">Incoming Orders <span class="text-green-500">({{ $orders->count() }})</span></h2>
+<div class="container mx-auto p-4" x-data="{ showModal: false, receiptUrl: '', orderId: null, status: '' }">
+    <h2 class="text-2xl font-bold mb-4">Your Orders <span class="text-green-500">({{ $orders->count() }})</span></h2>
 
     @if (session()->has('success'))
         <div class="bg-green-100 border border-green-400 text-green-700 px-4 py-3 rounded relative" role="alert">
@@ -41,16 +41,12 @@
                     class="text-sm px-4 py-2 rounded-md text-white">{{ $order->status }}</span>
                 <p>{{ $order->service->title }}</p>
                 <p>{{ $order->service->price }}</p>
-                <div class="flex flex-col md:flex-row items-center md:space-x-3 md:space-y-0 space-y-3">
-                    <button @click="receiptUrl = '{{ Storage::url('') . $order->file_url }}'; showModal = true"
-                        class="px-4 py-2 text-blue-500 bg-transparent hover:bg-blue-500 hover:text-white rounded w-full md:w-fit border border-blue-500">See
-                        receipt</button>
-                    @if ($order->status !== 'Completed')
-                        <button
-                            @click="orderId = '{{ $order->id }}'; showConfirm = true; status = '{{ $order->status }}'"
-                            class="px-4 py-2 bg-green-500 text-white rounded w-full md:w-fit">{{ $order->status === 'Pending' ? 'Accept' : 'Complete' }}</button>
-                    @endif
-                </div>
+                <button @click="receiptUrl = '{{ Storage::url('') . $order->file_url }}'; showModal = true"
+                    class="px-4 py-2 text-blue-500 bg-transparent hover:bg-blue-500 hover:text-white rounded w-full md:w-fit border border-blue-500">See
+                    receipt</button>
+                @if ($order->status === "Completed")
+                    <button class="px-4 py-2 bg-orange-500 text-white rounded w-full md:w-fit" wire:click="placeOrder({{ $order->service->id }})">Rate</button>
+                @endif
             </div>
         @empty
             <p>No order items yet...</p>
@@ -74,33 +70,6 @@
             </div>
             <div class="mt-4 overflow-auto">
                 <img :src="receiptUrl" class="w-full h-full">
-            </div>
-        </div>
-    </div>
-
-    <!-- Confirmation Modal -->
-    <div x-show="showConfirm" class="fixed inset-0 flex items-center justify-center z-50">
-        <div class="fixed inset-0 bg-gray-800 opacity-50" @click="showConfirm = false"></div>
-        <div
-            class="bg-white rounded-lg overflow-hidden shadow-xl transform transition-all sm:max-w-lg sm:w-full max-h-[70vh] p-4">
-            <div class="flex justify-between items-center pb-2 border-b border-gray-200">
-                <h3 class="text-lg font-medium text-gray-900" x-text="status === 'Pending' ? 'Confirm Order' : status === 'On Going' ? 'Complete Order' : ''"></h3>
-                <button @click="showConfirm = false" class="text-gray-400 hover:text-gray-500">
-                    <svg class="h-6 w-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"
-                        xmlns="http://www.w3.org/2000/svg">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12">
-                        </path>
-                    </svg>
-                </button>
-            </div>
-            <div class="mt-4">
-                <p x-text="status === 'Pending' ? 'Are you sure you want to accept this order?' : status === 'On Going' ? 'Are you sure you want to complete this order?' : ''">Are you sure you want to accept this order?</p>
-                <div class="flex justify-end mt-4">
-                    <button @click="showConfirm = false"
-                        class="px-4 py-2 bg-gray-500 text-white rounded mr-2">Cancel</button>
-                    <button @click="$wire.proceedStatus(orderId, status); showConfirm = false"
-                        class="px-4 py-2 bg-green-500 text-white rounded" x-text="status === 'Pending' ? 'Yes, accept' : 'Yes, complete'"></button>
-                </div>
             </div>
         </div>
     </div>

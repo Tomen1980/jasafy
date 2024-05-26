@@ -39,8 +39,13 @@
                                 <path d="m5 11 4-7" />
                                 <path d="m9 11 1 9" />
                             </svg></a>
+                        <a class="text-gray-500 hover:text-gray-700 px-3 py-2 rounded-md text-sm font-medium"
+                            href={{ route('my-orders') }} wire:navigate>My orders</a>
+                    @elseif (Auth::user()->role === 'seller')
+                        <a class="text-gray-500 hover:text-gray-700 px-3 py-2 rounded-md text-sm font-medium"
+                            href={{ route('orders') }}>Orders</a>
                     @endif
-                    <a href="/profile" class="text-gray-500 hover:text-gray-700 px-3 py-2 rounded-md text-sm font-medium"
+                    <a href={{ route("profile") }} class="text-gray-500 hover:text-gray-700 px-3 py-2 rounded-md text-sm font-medium"
                         wire:navigate>Profile</a>
                     <button class="hover:text-white px-3 py-2 rounded-md text-sm font-medium text-red-500 hover:bg-red-500"
                         wire:click="logout">Logout</button>
@@ -62,7 +67,20 @@
                 class="text-gray-500 hover:text-gray-700 block px-3 py-2 rounded-md text-base font-medium"
                 wire:navigate>Home</a>
             @auth
-                <a href="/profile"
+                @if (Auth::user()->role === 'customer')
+                    <a href={{ route('my-orders') }}
+                        class="text-gray-500 hover:text-gray-700 block px-3 py-2 rounded-md text-base font-medium"
+                        wire:navigate>My
+                        orders</a>
+                    <a href="/cart"
+                        class="text-gray-500 hover:text-gray-700 block px-3 py-2 rounded-md text-base font-medium"
+                        wire:navigate>My cart</a>
+                @else
+                    <a href={{ route('orders') }}
+                        class="text-gray-500 hover:text-gray-700 block px-3 py-2 rounded-md text-base font-medium"
+                        wire:navigate>Orders</a>
+                @endif
+                <a href={{ route("profile") }}
                     class="text-gray-500 hover:text-gray-700 block px-3 py-2 rounded-md text-base font-medium"
                     wire:navigate>Profile</a>
                 <button
