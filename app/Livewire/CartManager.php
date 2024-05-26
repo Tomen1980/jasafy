@@ -18,6 +18,14 @@ class CartManager extends Component
     public function loadCarts()
     {
         $this->carts = Cart::where('user_id', Auth::id())->get();
+        $this->formatPrices();
+    }
+
+    private function formatPrices()
+    {
+        foreach ($this->carts as $cart) {
+            $cart->service->price = "Rp " . number_format($cart->service->price, 2, ',', '.');
+        }
     }
 
     public function removeFromCart($cartId)
@@ -45,6 +53,11 @@ class CartManager extends Component
             ]);
             session()->flash('success', 'Added an item to Cart successfully!!');
         }
+    }
+
+    public function placeOrder($serviceId)
+    {
+        return redirect()->route("orders", ['q' => $serviceId]);
     }
 
     public function render()

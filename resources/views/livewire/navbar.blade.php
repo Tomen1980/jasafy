@@ -56,7 +56,7 @@
         </div>
     </div>
 
-    <div :class="{ 'block': open, 'hidden': !open }" class="md:hidden">
+    <div class="bg-white shadow" :class="{ 'block': open, 'hidden': !open }" class="md:hidden">
         <div class="px-2 pt-2 pb-3 space-y-1 sm:px-3">
             <a href={{ route('home') }}
                 class="text-gray-500 hover:text-gray-700 block px-3 py-2 rounded-md text-base font-medium"

@@ -42,9 +42,9 @@ class Profile extends Component
 
         $this->validate([
             'name' => ['required', 'string', 'max:255'],
-            'username' => ['required', 'string', 'min:6', 'max:255',  'unique:users,username,' . $userId],
+            'username' => ['required', 'string', 'min:6', 'max:255', 'unique:users,username,' . $userId],
             'description' => ['nullable', 'string', 'max:255'],
-            'email' => ['required', 'string', 'email', 'max:255',  'unique:users,email,' . $userId],
+            'email' => ['required', 'string', 'email', 'max:255', 'unique:users,email,' . $userId],
             'password' => ['required', 'min:8', 'same:passwordConfirmation'],
             'phone_number' => ['required', 'string', 'min:6'],
             'new_image' => ['nullable', 'image', 'max:2048'],
@@ -59,10 +59,10 @@ class Profile extends Component
         $user->phone_number = $this->phone_number;
 
         if ($this->new_image) {
-            if($this->image !== "default.jpg"){
+            if ($this->image !== 'default.jpg') {
                 Storage::delete($user->image);
             }
-            $path = $this->new_image->store('public/user');
+            $path = $this->new_image->store('profiles', 'public');
             $user->image = $path;
         }
 
@@ -76,8 +76,6 @@ class Profile extends Component
         }
 
         session()->flash('message', 'Profile updated successfully.');
-
-        // return redirect()->route("profile");
     }
 
     public function render()

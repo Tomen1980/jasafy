@@ -19,7 +19,7 @@
         @forelse($carts as $cart)
             <div class="p-4 bg-white border overflow-hidden sm:rounded-lg space-y-3 group" wire:key={{ $cart->id }}>
                 <div class="h-44 relative w-full">
-                    <img src="{{ $cart->service->image === 'defaultCart.jpg' ? Storage::url('services/') . $cart->service->image : Storage::url($cart->service->image) }}"
+                    <img src="{{ $cart->service->image === 'defaultService.jpg' ? Storage::url('services/') . $cart->service->image : Storage::url($cart->service->image) }}"
                         alt="{{ $cart->service->title }}" class="w-full h-full object-cover rounded-md">
                     <div
                         class="bg-black/50 absolute hidden inset-0 m-auto rounded-md group-hover:flex items-center justify-center">
@@ -28,8 +28,9 @@
                     </div>
                 </div>
                 <p>{{ $cart->service->title }}</p>
+                <p>{{ $cart->service->price }}</p>
                 <div class="flex flex-col md:flex-row items-center md:space-x-3 md:space-y-0 space-y-3">
-                    <button class="px-4 py-2 bg-green-500 text-white rounded w-full md:w-fit">Order</button>
+                <button class="px-4 py-2 bg-green-500 text-white rounded w-full md:w-fit" wire:click="placeOrder({{ $cart->service->id }})">Order</button>
                     <button wire:click="removeFromCart({{ $cart->id }})"
                         class="px-4 py-2 bg-red-500 text-white rounded w-full md:w-fit">Remove</button>
                 </div>

@@ -26,7 +26,8 @@ class Services extends Component
         return view('livewire.services')->extends('layouts.app');
     }
 
-    public function addToCart(CartManager $cartManager,$id ){
+    public function addToCart(CartManager $cartManager, $id)
+    {
         $cartManager->addToCart($id);
     }
 

@@ -2,7 +2,7 @@
 
 <div class="flex items-center md:h-[calc(100vh-5rem)]">
     <div class="container mx-auto p-4">
-        <div class="mx-auto bg-white p-6 rounded-lg w-full shadow-md">
+        <div class="mx-auto bg-white p-6 rounded-lg w-full border">
             <h2 class="text-2xl font-semibold mb-4">Edit Profile</h2>
             @if (session()->has('message'))
                 <div class="bg-green-500 text-white p-2 rounded mb-4">
@@ -23,7 +23,7 @@
                             @if ($new_image)
                                 <img src="{{ $new_image->temporaryUrl() }}" class="mt-2 h-20 w-20 rounded-full">
                             @elseif($image)
-                                <img src="{{$image == "default.jpg" ? Storage::url('profile/default.jpg') :Storage::url($image) }}" class="mt-2 h-20 w-20 rounded-full"
+                                <img src="{{$image === "default.jpg" ? Storage::url('profiles/default.jpg') : Storage::url('profiles/') . $image }}" class="mt-2 h-20 w-20 object-cover rounded-full"
                                     alt={{ $name }}>
                             @endif
                         </div>

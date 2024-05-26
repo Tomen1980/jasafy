@@ -19,6 +19,11 @@ class ServiceDetail extends Component
         $this->totalRating = $this->calculateTotalRating();
     }
 
+    public function placeOrder(CartManager $cartManager, $serviceId)
+    {
+        $cartManager->placeOrder($serviceId);
+    }
+
     public function calculateTotalRating()
     {
         $totalSum = $this->service->ratings()->sum('rating');

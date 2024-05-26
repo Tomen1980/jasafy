@@ -12,6 +12,7 @@ use App\Livewire\CartManager;
 use App\Livewire\Profile;
 use App\Livewire\ServiceDetail;
 use App\Livewire\Services;
+use App\Livewire\Orders;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -48,6 +49,7 @@ Route::middleware('auth')->group(function () {
     Route::get('services', Services::class)->name('services');
     Route::get('/service/{serviceId}', ServiceDetail::class)->name('service.detail');
     Route::get('/cart', CartManager::class)->name('cart-manager')->middleware('role:customer');
+    Route::get('/order', Orders::class)->name('orders')->middleware('role:customer');
 });
 
 Route::middleware('auth')->group(function () {

@@ -16,6 +16,7 @@ return new class extends Migration
             $table->foreignId('user_id')->constrained()->onDelete('cascade')->onUpdate('cascade')->references("id")->on("users");
             $table->foreignId('service_id')->constrained()->onDelete('cascade')->onUpdate('cascade')->references("id")->on("services");
             $table->enum("status",["On Going","Completed","Done"])->default("On Going");
+            $table->float('total_price');
             $table->string('file_url');
             $table->boolean('is_paid')->default(false);
             $table->timestamps();
