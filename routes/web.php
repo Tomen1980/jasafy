@@ -15,6 +15,7 @@ use App\Livewire\ServiceDetail;
 use App\Livewire\Services;
 use App\Livewire\Order;
 use App\Livewire\Orders;
+use App\Livewire\Wishlist;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -53,6 +54,7 @@ Route::middleware('auth')->group(function () {
     Route::get('/cart', CartManager::class)->name('cart-manager')->middleware('role:customer');
     Route::get('/order', Order::class)->name('order')->middleware('role:customer');
     Route::get('/my-orders', MyOrders::class)->name('my-orders')->middleware('role:customer');
+    Route::get('/my-wishlist', Wishlist::class)->name('my-wishlist')->middleware('role:customer');
 
     Route::get('/orders', Orders::class)->name('orders')->middleware('role:seller');
 });

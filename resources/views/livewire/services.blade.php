@@ -27,13 +27,15 @@
     </div>
 
     @if (session()->has('success'))
-        <div class="bg-green-100 border border-green-400 text-green-700 px-4 py-3 rounded relative container mx-auto mt-4" role="alert">
+        <div class="bg-green-100 border border-green-400 text-green-700 px-4 py-3 rounded relative container mx-auto mt-4"
+            role="alert">
             <span class="block sm:inline">{{ session('success') }}</span>
         </div>
     @endif
 
     @if (session()->has('error'))
-        <div class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative container mx-auto mt-4" role="alert">
+        <div class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative container mx-auto mt-4"
+            role="alert">
             <span class="block sm:inline">{{ session('error') }}</span>
         </div>
     @endif
@@ -54,9 +56,22 @@
                         <img src="{{ $service->image === 'defaultService.jpg' ? Storage::url('services/') . $service->image : Storage::url($service->image) }}"
                             alt="{{ $service->title }}" class="w-full h-full object-cover rounded-md">
                         <div
-                            class="bg-black/50 absolute hidden inset-0 m-auto rounded-md group-hover:flex items-center justify-center">
+                            class="bg-black/50 absolute hidden inset-0 m-auto rounded-md group-hover:flex items-center justify-center flex-col md:flex-row md:space-x-3 space-y-4 md:space-y-0">
                             <a class="bg-yellow-500 text-white px-4 py-2 rounded transition border-transparent hover:bg-transparent border hover:border-yellow-500 hover:text-yellow-500"
                                 wire:navigate href={{ route('service.detail', $service->id) }}>Details</a>
+                            @auth
+                                @if (Auth::user()->role === 'customer')
+                                    <button
+                                        class="bg-pink-500 text-white px-4 py-2 rounded inline-flex items-center gap-2 transition border-transparent hover:bg-transparent border hover:border-pink-500 hover:text-pink-500"
+                                        wire:click="addToWishlist({{ $service->id }})"><svg
+                                            xmlns="http://www.w3.org/2000/svg"
+                                            viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                                            stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-plus h-6 w-6">
+                                            <path d="M5 12h14" />
+                                            <path d="M12 5v14" />
+                                        </svg> Wishlist</button>
+                                @endif
+                            @endauth
                         </div>
                     </div>
                     <h2 class="text-xl font-bold mt-4">{{ $service->title }}</h2>

@@ -12,7 +12,7 @@
         <p class="text-gray-700 truncate">Product: <span class="font-semibold text-black">{{ $service->title }}</span></p>
 
         <img src="{{ $service->image === 'defaultService.jpg' ? Storage::url('services/') . $service->image : Storage::url($service->image) }}"
-            alt="{{ $service->title }}" class="w-full h-96 object-cover" @click="showMainImageModal = true">
+            alt="{{ $service->title }}" class="w-full h-96 object-cover cursor-pointer" @click="showMainImageModal = true">
 
         <div>
             <div class="py-4">

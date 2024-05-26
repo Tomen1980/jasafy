@@ -36,7 +36,7 @@
         </div>
         <img src="{{ $service->image == 'defaultService.jpg' ? Storage::url('public/services/') . $service->image : Storage::url($service->image) }}"
             alt="{{ $service->title }}"
-            class="mb-4 w-full lg:w-[36rem] xl:w-[44rem] object-cover h-96 lg:h-[32rem] lg:ml-auto rounded"
+            class="mb-4 w-full lg:w-[36rem] p-2 border xl:w-[44rem] object-cover h-96 lg:h-[32rem] lg:ml-auto rounded-md cursor-pointer"
             @click="showPreviewModal = true">
     </div>
 

@@ -5,6 +5,7 @@ namespace App\Livewire;
 use App\Models\Category;
 use App\Models\Service;
 
+use App\Livewire\Wishlist;
 use App\Livewire\CartManager;
 use Illuminate\Support\Facades\Storage;
 use Livewire\Component;
@@ -29,6 +30,11 @@ class Services extends Component
     public function addToCart(CartManager $cartManager, $id)
     {
         $cartManager->addToCart($id);
+    }
+    
+    public function addToWishlist(Wishlist $wishlist, $serviceId)
+    {
+        $wishlist->addToWishlist($serviceId);
     }
 
     public function openModal()
