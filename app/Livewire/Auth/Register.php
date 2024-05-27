@@ -41,13 +41,20 @@ class Register extends Component
             'password' => ['required', 'min:8', 'same:passwordConfirmation'],
             'phone_number' => ['required', 'string', 'min:6'],
         ]);
+        
+        $phoneValidate = preg_replace('/\s+/', '', $this->phone_number);
+        if (strpos($phoneValidate, '0') === 0) {
+            $phoneValidate = '62' . substr($phoneValidate, 1);
+        }elseif (strpos($phoneValidate, '62') !== 0) {
+            $phoneValidate = '62' . $phoneValidate;
+        }
 
         $user = User::create([
             'name' => $this->name,
             'username' => $this->username,
             'email' => $this->email,
             'password' => Hash::make($this->password),
-            'phone_number' => $this->phone_number,
+            'phone_number' => $phoneValidate,
             'role' => $this->is_seller ? 'seller' : 'customer',
         ]);
 

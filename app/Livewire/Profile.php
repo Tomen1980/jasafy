@@ -59,11 +59,18 @@ class Profile extends Component
             return;
         }
 
+        $phoneValidate = preg_replace('/\s+/', '', $this->phone_number);
+        if (strpos($phoneValidate, '0') === 0) {
+            $phoneValidate = '62' . substr($phoneValidate, 1);
+        }elseif (strpos($phoneValidate, '62') !== 0) {
+            $phoneValidate = '62' . $phoneValidate;
+        }
+
         $user->name = $this->name;
         $user->username = $this->username;
         $user->description = $this->description;
         $user->email = $this->email;
-        $user->phone_number = $this->phone_number;
+        $user->phone_number = $phoneValidate;
 
         if ($this->new_image) {
             if ($this->image !== 'default.jpg') {

@@ -59,7 +59,7 @@ class Order extends Component
             ['id' => $this->order_id],
             [
                 'user_id' => auth()->user()->id,
-                'total_price' => $this->service->price,
+                // 'total_price' => $this->service->price,
                 'file_url' => $imagePath,
                 'service_id' => $this->service_id,
             ],

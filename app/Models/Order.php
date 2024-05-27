@@ -14,7 +14,7 @@ class Order extends Model
         'service_id',
         'status',
         'is_paid',
-        'total_price',
+        // 'total_price',
         'file_url'
     ];
 
