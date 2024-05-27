@@ -28,7 +28,7 @@
                     <div>
                         <label for="name" class="sr-only">Name</label>
                         <input id="name" name="name" type="text" wire:model="name" required
-                            class="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-t-md focus:outline-none focus:ring-[#33CD99] focus:border-[#33CD99] focus:z-10 sm:text-sm"
+                            class="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-t-md focus:outline-none focus:ring-[#33CD99] focus:border-[#33CD99] focus:z-10"
                             placeholder="Name">
                         @error('name')
                             <span class="text-red-500 text-sm italic">{{ $message }}</span>
@@ -37,7 +37,7 @@
                     <div>
                         <label for="username" class="sr-only">Username</label>
                         <input id="username" name="username" type="username" wire:model="username" required
-                            class="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 focus:outline-none focus:ring-[#33CD99] focus:border-[#33CD99] focus:z-10 sm:text-sm"
+                            class="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 focus:outline-none focus:ring-[#33CD99] focus:border-[#33CD99] focus:z-10"
                             placeholder="Username">
                         @error('username')
                             <span class="text-red-500 text-sm italic">{{ $message }}</span>
@@ -46,7 +46,7 @@
                     <div>
                         <label for="email" class="sr-only">Email address</label>
                         <input id="email" name="email" type="email" wire:model="email" required
-                            class="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 focus:outline-none focus:ring-[#33CD99] focus:border-[#33CD99] focus:z-10 sm:text-sm"
+                            class="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 focus:outline-none focus:ring-[#33CD99] focus:border-[#33CD99] focus:z-10"
                             placeholder="Email address">
                         @error('email')
                             <span class="text-red-500 text-sm italic">{{ $message }}</span>
@@ -55,7 +55,7 @@
                     <div>
                         <label for="phone_number" class="sr-only">Phone number</label>
                         <input id="phone_number" name="phone_number" type="tel" wire:model="phone_number" required
-                            class="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 focus:outline-none focus:ring-[#33CD99] focus:border-[#33CD99] focus:z-10 sm:text-sm"
+                            class="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 focus:outline-none focus:ring-[#33CD99] focus:border-[#33CD99] focus:z-10"
                             placeholder="Phone number">
                         @error('phone_number')
                             <span class="text-red-500 text-sm italic">{{ $message }}</span>
@@ -64,7 +64,7 @@
                     <div>
                         <label for="password" class="sr-only">Password</label>
                         <input id="password" name="password" type="password" wire:model="password" required
-                            class="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 focus:outline-none focus:ring-[#33CD99] focus:border-[#33CD99] focus:z-10 sm:text-sm"
+                            class="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 focus:outline-none focus:ring-[#33CD99] focus:border-[#33CD99] focus:z-10"
                             placeholder="Password">
                         @error('password')
                             <span class="text-red-500 text-sm italic">{{ $message }}</span>
@@ -74,7 +74,7 @@
                         <label for="passwordConfirmation" class="sr-only">Confirm Password</label>
                         <input id="passwordConfirmation" name="passwordConfirmation" type="password"
                             wire:model="passwordConfirmation" required
-                            class="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-b-md focus:outline-none focus:ring-[#33CD99] focus:border-[#33CD99] focus:z-10 sm:text-sm"
+                            class="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-b-md focus:outline-none focus:ring-[#33CD99] focus:border-[#33CD99] focus:z-10"
                             placeholder="Confirm Password">
                         @error('passwordConfirmation')
                             <span class="text-red-500 text-sm italic">{{ $message }}</span>
@@ -84,7 +84,7 @@
 
                 <div class="space-y-3 flex flex-col items-center">
                     <button type="submit"
-                        class="group relative w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white hover:to-[#33cd6e] to-[#33CD99] bg-gradient-to-r from-[#33cd6e] focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-[#33CD99]">
+                        class="group relative w-full flex justify-center py-2 px-4 border border-transparent font-medium rounded-md text-white hover:to-[#33cd6e] to-[#33CD99] bg-gradient-to-r from-[#33cd6e] focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-[#33CD99]">
                         Register
                     </button>
                     <a class="text-[#33CD99] hover:underline text-sm" href="/login">Already registered?</a>

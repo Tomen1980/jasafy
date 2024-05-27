@@ -14,9 +14,13 @@ class Order extends Model
         'service_id',
         'status',
         'is_paid',
-        // 'total_price',
         'file_url'
     ];
+
+    public function rating()
+    {
+        return $this->hasOne(Rating::class, 'service_id', 'service_id')->where('user_id', auth()->user()->id);
+    }
 
     public function user()
     {

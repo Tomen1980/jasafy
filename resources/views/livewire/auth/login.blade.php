@@ -9,7 +9,7 @@
                     <div>
                         <label for="email" class="sr-only">Email address</label>
                         <input id="email" name="email" type="email" wire:model="email"
-                            class="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-t-md focus:outline-none focus:ring-[#33CD99] focus:border-[#33CD99] focus:z-10 sm:text-sm"
+                            class="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-t-md focus:outline-none focus:ring-[#33CD99] focus:border-[#33CD99] focus:z-10"
                             placeholder="Email address">
                         @error('email')
                             <span class="text-red-500 text-sm italic">{{ $message }}</span>
@@ -18,7 +18,7 @@
                     <div>
                         <label for="password" class="sr-only">Password</label>
                         <input id="password" name="password" type="password" wire:model="password"
-                            class="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-b-md focus:outline-none focus:ring-[#33CD99] focus:border-[#33CD99] focus:z-10 sm:text-sm"
+                            class="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-b-md focus:outline-none focus:ring-[#33CD99] focus:border-[#33CD99] focus:z-10"
                             placeholder="Password">
                         @error('password')
                             <span class="text-red-500 text-sm italic">{{ $message }}</span>
@@ -44,7 +44,7 @@
 
                 <div class="space-y-3 flex flex-col items-center">
                     <button type="submit"
-                        class="group relative w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white hover:to-[#33cd6e] to-[#33CD99] bg-gradient-to-r from-[#33cd6e] focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-[#33CD99]">
+                        class="group relative w-full flex justify-center py-2 px-4 border border-transparent font-medium rounded-md text-white hover:to-[#33cd6e] to-[#33CD99] bg-gradient-to-r from-[#33cd6e] focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-[#33CD99]">
                         Sign in
                     </button>
                     <a class="text-[#33CD99] hover:underline text-sm" href="/register">New to Jasafy?</a>
