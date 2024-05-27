@@ -53,33 +53,35 @@
                     class="text-sm px-4 py-2 rounded-md text-white">{{ $order->status }}</span>
                 <p>{{ $order->service->title }}</p>
                 <p>{{ $order->service->price }}</p>
-                <button @click="receiptUrl = '{{ Storage::url('') . $order->file_url }}'; showModal = true"
-                    class="px-4 py-2 text-blue-500 bg-transparent hover:bg-blue-500 hover:text-white rounded w-full md:w-fit border border-blue-500">See
-                    receipt</button>
-                @if ($order->status === "Completed")
-                    @if ($order->rating)
-                        <button @click="
-                            ratingData = {
-                                orderId: {{ $order->id }},
-                                serviceId: {{ $order->service->id }},
-                                ratingId: {{ $order->rating->id }},
-                                rating: {{ $order->rating->rating }},
-                                comment: '{{ $order->rating->comment }}'
-                            }; 
-                            showUpdateModal = true"
-                            class="px-4 py-2 bg-yellow-500 text-white rounded w-full md:w-fit">Update Rating</button>
-                        <button @click="deleteRatingId = {{ $order->rating->id }}; showConfirmDeleteModal = true"
-                            class="px-4 py-2 bg-red-500 text-white rounded w-full md:w-fit">Delete Rating</button>
-                    @else
-                        <button @click="
-                            ratingData = {
-                                orderId: {{ $order->id }},
-                                serviceId: {{ $order->service->id }}
-                            }; 
-                            showRatingModal = true"
-                            class="px-4 py-2 bg-orange-500 text-white rounded w-full md:w-fit">Rate</button>
+                <div class="flex flex-col md:flex-row items-center md:space-x-3 md:space-y-0 space-y-3 overflow-x-auto">
+                    <button @click="receiptUrl = '{{ Storage::url('') . $order->file_url }}'; showModal = true"
+                        class="px-4 py-2 text-blue-500 bg-transparent hover:bg-blue-500 hover:text-white rounded w-full md:w-fit border border-blue-500 whitespace-nowrap">See
+                        receipt</button>
+                    @if ($order->status === "Completed")
+                        @if ($order->rating)
+                            <button @click="
+                                ratingData = {
+                                    orderId: {{ $order->id }},
+                                    serviceId: {{ $order->service->id }},
+                                    ratingId: {{ $order->rating->id }},
+                                    rating: {{ $order->rating->rating }},
+                                    comment: '{{ $order->rating->comment }}'
+                                }; 
+                                showUpdateModal = true"
+                                class="px-4 py-2 bg-yellow-500 text-white rounded w-full md:w-fit whitespace-nowrap">Update Rating</button>
+                            <button @click="deleteRatingId = {{ $order->rating->id }}; showConfirmDeleteModal = true"
+                                class="px-4 py-2 bg-red-500 text-white rounded w-full md:w-fit whitespace-nowrap">Delete Rating</button>
+                        @else
+                            <button @click="
+                                ratingData = {
+                                    orderId: {{ $order->id }},
+                                    serviceId: {{ $order->service->id }}
+                                }; 
+                                showRatingModal = true"
+                                class="px-4 py-2 bg-orange-500 text-white rounded w-full md:w-fit whitespace-nowrap">Rate</button>
+                        @endif
                     @endif
-                @endif
+                </div>
             </div>
         @empty
             <p>No order items yet...</p>

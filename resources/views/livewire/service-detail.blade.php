@@ -23,7 +23,7 @@
                         class="font-medium rounded-md text-white py-3 px-9 hover:to-[#33cd6e] to-[#33CD99] bg-gradient-to-r from-[#33cd6e] focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-[#33CD99]"
                         wire:click="placeOrder({{ $service->id }})">Order
                         now</button>
-                    <a class="font-medium rounded-md py-3 px-9 bg-gray-200 hover:bg-gray-500 hover:text-white focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-[#33CD99]"
+                    <a class="font-medium rounded-md py-3 px-9 bg-gray-200 hover:bg-gray-500 hover:text-white text-center focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-[#33CD99]"
                         target="_blank" rel="noopener noreferrer"
                         href={{ 'https://wa.me/' . $service->user->phone_number }}>Chat</a>
                 @else
@@ -38,6 +38,35 @@
             alt="{{ $service->title }}"
             class="mb-4 w-full lg:w-[36rem] p-2 border xl:w-[44rem] object-cover h-96 lg:h-[32rem] lg:ml-auto rounded-md cursor-pointer"
             @click="showPreviewModal = true">
+    </div>
+
+    <!-- Ratings Section -->
+    <div class="container mx-auto px-4 sm:px-6 lg:px-8 py-6">
+        <h2 class="text-2xl font-bold mb-6">Ratings</h2>
+        <div class="space-y-6">
+            @forelse($service->ratings as $rating)
+                <div class="flex items-start space-x-4">
+                    <img class="h-12 w-12 rounded-full object-cover shrink-0" src={{ Storage::url('profiles/') . $rating->user->image }} alt="{{ $rating->user->username }}">
+                    <div>
+                        <div class="flex items-center space-x-2">
+                            <h3 class="text-lg font-semibold">{{ $rating->user->username }}</h3>
+                            <span class="text-gray-500 text-sm">{{ $rating->created_at->format('M d, Y') }}</span>
+                        </div>
+                        <div class="flex items-center mt-1">
+                            @for ($i = 0; $i < $rating->rating; $i++)
+                                <svg class="h-5 w-5 text-yellow-500" fill="currentColor" viewBox="0 0 24 24">
+                                    <path
+                                        d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z" />
+                                </svg>
+                            @endfor
+                        </div>
+                        <p class="text-gray-600 mt-2 max-h-40 overflow-y-auto">{{ $rating->comment }}</p>
+                    </div>
+                </div>
+            @empty
+                <p class="text-gray-600">No ratings yet for this service...</p>
+            @endforelse
+        </div>
     </div>
 
     <div x-show="showEditModal" @keydown.escape.window="showEditModal = false" @click.self="showEditModal = false">
