@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id();
             $table->foreignId('user_id')->constrained()->onDelete('cascade')->onUpdate('cascade')->references("id")->on("users");
             $table->foreignId('service_id')->constrained()->onDelete('cascade')->onUpdate('cascade')->references("id")->on("services");
-            $table->integer('rating'); // nilai rating, misalnya dari 1 sampai 5
+            $table->float('rating'); // nilai rating, misalnya dari 1 sampai 5
             $table->text('comment')->nullable();
             $table->timestamps();
         });
