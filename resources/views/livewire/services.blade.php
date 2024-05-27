@@ -41,12 +41,23 @@
     @endif
 
     <div class="container mx-auto px-4 py-6">
-        <div class="flex justify-between items-center">
+        <div class="flex justify-between items-center mb-4">
             <h1 class="text-2xl font-bold">Services</h1>
             @if (Auth::user()->role === 'seller')
                 <button class="bg-blue-500 text-white px-4 py-2 rounded"
                     @click="openModal = true; isEditing = false; $wire.resetInputFields()">Add Service</button>
             @endif
+        </div>
+
+        <!-- Search Input -->
+        <div class="relative">
+            <input type="text" wire:model.debounce.300ms="search" placeholder="Search services..."
+                class="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-[#33CD99] focus:border-[#33CD99]">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="absolute top-2 right-3 h-6 w-6 text-gray-400">
+                <circle cx="11" cy="11" r="8" />
+                <line x1="21" y1="21" x2="16.65" y2="16.65" />
+            </svg>
         </div>
 
         <div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6 mt-6">

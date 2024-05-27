@@ -18,6 +18,7 @@ class Services extends Component
     public $services, $categories, $categoryId, $serviceId, $title, $description, $price, $location, $maps, $image;
     public $isModalOpen = false;
     public $isConfirming = false;
+    public $search;
 
     public function render()
     {
