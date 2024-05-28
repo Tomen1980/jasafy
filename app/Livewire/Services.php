@@ -15,32 +15,35 @@ class Services extends Component
 {
     use WithFileUploads;
 
-    public $services, $categories, $categoryId, $serviceId, $title, $description, $price, $location, $maps, $image;
+    public $categoryId, $serviceId, $title, $description, $price, $location, $maps, $image;
     public $isModalOpen = false;
     public $isConfirming = false;
-    public $search;
+    public $searchTerm;
 
     public function render()
     {
-        $this->services = Service::all();
-        $this->categories = Category::all();
+        $services = Service::when($this->searchTerm, function ($query) {
+            $query
+                ->where('title', 'like', '%' . $this->searchTerm . '%')
+                // ->orWhere('category', 'like', '%' . $this->searchTerm . '%')
+                ->orWhere('location', 'like', '%' . $this->searchTerm . '%');
+        })->get();
+        $categories = Category::all();
 
-        return view('livewire.services')->extends('layouts.app');
+        return view('livewire.services', [
+            'services' => $services,
+            'categories' => $categories
+        ])->extends('layouts.app');
     }
 
     public function addToCart(CartManager $cartManager, $id)
     {
         $cartManager->addToCart($id);
     }
-    
+
     public function addToWishlist(Wishlist $wishlist, $serviceId)
     {
         $wishlist->addToWishlist($serviceId);
-    }
-
-    public function openModal()
-    {
-        $this->isModalOpen = true;
     }
 
     public function resetInputFields()
@@ -63,7 +66,7 @@ class Services extends Component
             'price' => 'required|numeric',
             'location' => 'required|string|max:255',
             'maps' => 'required|string|max:255',
-            'image' => 'required|image|max:1024',
+            'image' => 'required|image|mimes:jpg,jpeg,png,webp|max:2048',
         ]);
 
         $imagePath = $this->image->store('services', 'public');
@@ -82,6 +85,7 @@ class Services extends Component
         session()->flash('success', 'Service created successfully.');
 
         $this->resetInputFields();
+        $this->isModalOpen = false;
     }
 
     public function update()
@@ -92,37 +96,39 @@ class Services extends Component
             'price' => 'required|numeric',
             'location' => 'required|string|max:255',
             'maps' => 'required|string|max:255',
-            'image' => 'nullable|mimes:jpg,jpeg,png|max:1024',
         ]);
 
-        $dataOld = Service::where('id', $this->serviceId)->first();
+        $service = Service::find($this->serviceId);
 
-        if (!$this->categoryId) {
-            $categoryIdData = $dataOld->category_id;
-        } else {
-            $categoryIdData = $this->categoryId;
+        if (!$service) {
+            session()->flash('error', 'Service not found.');
+            return;
         }
 
-        if ($this->image !== $dataOld->image) {
-            if ($this->image !== 'defaultSevice.jpg') {
-                Storage::delete('public/' . $dataOld->image);
-            }
-            $imagePath = $this->image->store('services', 'public');
-        } else {
-            $imagePath = $dataOld->image;
-        }
-
-        Service::Where('id', $this->serviceId)->update([
+        $data = [
             'title' => $this->title,
             'description' => $this->description,
             'price' => $this->price,
             'location' => $this->location,
             'maps' => $this->maps,
-            'category_id' => $categoryIdData,
-            'image' => $imagePath,
-        ]);
+            'category_id' => $this->categoryId ?? $service->category_id,
+        ];
+
+        if ($this->image) {
+            $this->validate([
+                'image' => 'image|mimes:jpg,jpeg,png,webp|max:2048',
+            ]);
+
+            if ($service->image && $service->image !== 'defaultService.jpg') {
+                Storage::delete('public/' . $service->image);
+            }
+            $data['image'] = $this->image->store('services', 'public');
+        }
+
+        $service->update($data);
 
         session()->flash('success', 'Service updated successfully.');
+        $this->isModalOpen = false;
     }
 
     public function edit($id)
@@ -135,9 +141,7 @@ class Services extends Component
         $this->location = $service->location;
         $this->categoryId = $service->category_id;
         $this->maps = $service->maps;
-        $this->image = $service->image;
-
-        $this->openModal();
+        $this->image = null; // Clear image input to avoid confusion
     }
 
     public function delete($id)
