@@ -22,6 +22,7 @@
                             src="{{ asset('logo.svg') }}" /></a>
                     <a class="text-gray-500 hover:text-gray-700 px-3 py-2 rounded-md text-sm font-medium hidden md:block"
                         href={{ route('services') }} wire:navigate>Services</a>
+                    <a class="text-gray-500 hover:text-gray-700 px-3 py-2 rounded-md text-sm font-medium hidden md:block" href={{ route("customer-health") }} wire:navigate>Customer Health</a>
                 </div>
             </div>
             <div class="hidden md:flex md:items-center md:space-x-4">

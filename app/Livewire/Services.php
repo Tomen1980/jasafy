@@ -7,7 +7,9 @@ use App\Models\Service;
 
 use App\Livewire\Wishlist;
 use App\Livewire\CartManager;
+use Exception;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\Validator;
 use Livewire\Component;
 use Livewire\WithFileUploads;
 
@@ -96,6 +98,7 @@ class Services extends Component
             'price' => 'required|numeric',
             'location' => 'required|string|max:255',
             'maps' => 'required|string|max:255',
+            'image' => 'nullable|image|mimes:jpg,jpeg,png,webp|max:2048',
         ]);
 
         $service = Service::find($this->serviceId);
@@ -115,10 +118,6 @@ class Services extends Component
         ];
 
         if ($this->image) {
-            $this->validate([
-                'image' => 'image|mimes:jpg,jpeg,png,webp|max:2048',
-            ]);
-
             if ($service->image && $service->image !== 'defaultService.jpg') {
                 Storage::delete('public/' . $service->image);
             }
@@ -141,7 +140,7 @@ class Services extends Component
         $this->location = $service->location;
         $this->categoryId = $service->category_id;
         $this->maps = $service->maps;
-        $this->image = null; // Clear image input to avoid confusion
+        $this->image = null;
     }
 
     public function delete($id)

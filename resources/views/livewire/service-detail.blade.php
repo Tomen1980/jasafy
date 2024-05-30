@@ -157,12 +157,7 @@
                                 @enderror
                             </div>
                             <div class="mb-4">
-                                <div class="flex items-center gap-2">
-                                    <label class="block text-gray-700">Image</label>
-                                    @if ($service->image)
-                                        <p class="text-sm truncate text-gray-600">{{ $service->image }}</p>
-                                    @endif
-                                </div>
+                                <label class="block text-gray-700">Image</label>
                                 <input type="file" accept="image/png, image/jpg, image/jpeg, image/webp"
                                     wire:model="image"
                                     class="appearance-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-md focus:outline-none focus:ring-[#33CD99] focus:border-[#33CD99] focus:z-10"

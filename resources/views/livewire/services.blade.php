@@ -174,13 +174,9 @@
                             @enderror
                         </div>
                         <div class="mb-4">
-                            <div class="flex items-center gap-2">
-                                <label class="block text-gray-700">Image</label>
-                                @if ($service->image)
-                                    <p class="text-sm truncate text-gray-600">{{ $service->image }}</p>
-                                @endif
-                            </div>
-                            <input type="file" accept="image/png, image/jpeg, image/webp, image/jpg" wire:model="image"
+                            <label class="block text-gray-700">Image</label>
+                            <input type="file" accept="image/png, image/jpeg, image/webp, image/jpg"
+                                wire:model="image"
                                 class="appearance-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-md focus:outline-none focus:ring-[#33CD99] focus:border-[#33CD99] focus:z-10">
                             @error('image')
                                 <span class="text-red-500 text-sm italic">{{ $message }}</span>
@@ -258,13 +254,9 @@
                             @enderror
                         </div>
                         <div class="mb-4">
-                            <div class="flex items-center gap-2">
-                                <label class="block text-gray-700">Image</label>
-                                @if ($service->image)
-                                    <p class="text-sm truncate text-gray-600">{{ $service->image }}</p>
-                                @endif
-                            </div>
-                            <input type="file" wire:model="image"
+                            <label class="block text-gray-700">Image</label>
+                            <input type="file" accept="image/png, image/jpeg, image/webp, image/jpg"
+                                wire:model="image"
                                 class="appearance-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-md focus:outline-none focus:ring-[#33CD99] focus:border-[#33CD99] focus:z-10"
                                 name="image" id="image">
                             @error('image')
