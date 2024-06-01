@@ -94,7 +94,7 @@
                     <p class="text-gray-600">{{ $service->description }}</p>
                     <p class="text-gray-600">{{ $service->location }}</p>
                     <div class="flex items-center mt-4 space-x-3 overflow-x-auto">
-                        <a class="px-4 py-2 bg-blue-500 hover:bg-blue-700 text-white rounded-md transition ease-out text-center whitespace-nowrap"
+                        <a class="px-4 py-2 bg-sky-500 hover:bg-sky-700 text-white rounded-md transition ease-out text-center whitespace-nowrap"
                             href={{ $service->maps }} target="_blank" rel="noopener noreferrer">Google
                             Maps</a>
                         @if (Auth::user()->role === 'customer')
