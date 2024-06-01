@@ -1,6 +1,6 @@
 @section('title', $service->title)
 
-<div class="h-[calc(100vh-5rem)] w-full" x-data="{
+<div class="h-[calc(100vh-5rem)] w-full divide-y" x-data="{
     ...serviceDetail({{ json_encode(['price' => $service->price, 'ratings' => $service->ratings]) }}),
     showEditModal: $wire.entangle('isModalOpen').live,
     showPreviewModal: false,
@@ -38,10 +38,10 @@
             <div class="lg:space-x-3 space-y-3 lg:space-y-0 flex flex-col lg:flex-row w-full lg:w-fit lg:items-center">
                 @if (Auth::user()->role !== 'seller' && Auth::user()->id !== $service->user_id)
                     <button
-                        class="font-medium rounded-md text-white py-3 px-9 hover:to-[#33cd6e] to-[#33CD99] bg-gradient-to-r from-[#33cd6e] focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-[#33CD99]"
+                        class="font-medium rounded-md text-white py-3 px-9 shrink-0 hover:to-[#33cd6e] to-[#33CD99] bg-gradient-to-r from-[#33cd6e] focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-[#33CD99]"
                         wire:click="placeOrder({{ $service->id }})">Order
                         now</button>
-                    <a class="font-medium rounded-md py-3 px-9 bg-gray-200 hover:bg-gray-500 hover:text-white text-center focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-[#33CD99]"
+                    <a class="font-medium rounded-md py-3 px-9 bg-gray-200 shrink-0 hover:bg-gray-500 hover:text-white text-center focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-[#33CD99]"
                         target="_blank" rel="noopener noreferrer"
                         href={{ 'https://wa.me/' . $service->user->phone_number }}>Chat</a>
                 @else
@@ -52,10 +52,15 @@
                 @endif
             </div>
         </div>
-        <img src="{{ $service->image === 'defaultService.jpg' ? Storage::url('public/services/') . $service->image : Storage::url($service->image) }}"
-            alt="{{ $service->title }}"
-            class="mb-4 w-full lg:w-[36rem] p-2 border xl:w-[44rem] object-cover h-96 lg:h-[32rem] lg:ml-auto rounded-md cursor-pointer"
-            @click="showPreviewModal = true">
+        <div
+            class="lg:w-[36rem] xl:w-[44rem] p-2 border h-96 lg:h-[32rem] lg:ml-auto cursor-pointer rounded-md mb-4 relative">
+            <img src="{{ $service->image === 'defaultService.jpg' ? Storage::url('public/services/') . $service->image : Storage::url($service->image) }}"
+                alt="{{ $service->title }}" class="w-full object-cover h-full rounded-md"
+                @click="showPreviewModal = true">
+            <a class="p-2 bg-sky-500 hover:bg-sky-700 text-white rounded-md transition ease-out text-center whitespace-nowrap absolute top-0 left-0 m-4 border"
+                href={{ $service->maps }} target="_blank" rel="noopener noreferrer">Google
+                Maps</a>
+        </div>
     </div>
 
     <!-- Ratings Section -->
