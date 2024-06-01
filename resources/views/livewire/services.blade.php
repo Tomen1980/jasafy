@@ -113,7 +113,7 @@
             @endforeach
         </div>
         <div x-show="openModal" class="fixed inset-0 bg-gray-600 bg-opacity-50 flex justify-center items-center z-[99]"
-            @click.self="openModal = false" @keydown.escape.window="openModal = false">
+            @click.self="$wire.closeModal()" @keydown.escape.window="$wire.closeModal()">
             <div class="bg-white p-6 rounded-lg shadow-lg w-full md:w-1/2">
                 <h2 class="text-2xl font-bold mb-4" x-text="isEditing ? 'Edit Service' : 'Add Service'"></h2>
                 {{-- Store --}}
@@ -184,7 +184,7 @@
                             @enderror
                         </div>
                         <div class="flex justify-end">
-                            <button @click="openModal = false" class="bg-gray-500 text-white px-4 py-2 rounded mr-2"
+                            <button @click="$wire.closeModal()" class="bg-gray-500 text-white px-4 py-2 rounded mr-2"
                                 type="button">Cancel</button>
                             <button type="submit" class="bg-blue-500 text-white px-4 py-2 rounded">Add</button>
                         </div>
@@ -265,7 +265,7 @@
                             @enderror
                         </div>
                         <div class="flex justify-end">
-                            <button @click="openModal = false;" class="bg-gray-500 text-white px-4 py-2 rounded mr-2"
+                            <button @click="$wire.closeModal()" class="bg-gray-500 text-white px-4 py-2 rounded mr-2"
                                 type="button">Cancel</button>
                             <button type="submit" class="bg-blue-500 text-white px-4 py-2 rounded">Update</button>
                         </div>

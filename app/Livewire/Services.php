@@ -63,6 +63,12 @@ class Services extends Component
         $this->serviceId = null;
     }
 
+    public function closeModal()
+    {
+        $this->isModalOpen = false;
+        $this->resetValidation();
+    }
+
     public function store()
     {
         $this->validate([
@@ -71,6 +77,7 @@ class Services extends Component
             'price' => 'required|numeric',
             'location' => 'required|string|max:255',
             'maps' => 'required|string|max:255',
+            'categoryId' => 'required|min:1',
             'image' => 'required|image|mimes:jpg,jpeg,png,webp|max:2048',
         ]);
 
@@ -101,6 +108,7 @@ class Services extends Component
             'price' => 'required|numeric',
             'location' => 'required|string|max:255',
             'maps' => 'required|string|max:255',
+            'categoryId' => 'required|min:1',
             'image' => 'nullable|image|mimes:jpg,jpeg,png,webp|max:2048',
         ]);
 
