@@ -51,7 +51,7 @@
 
         <!-- Search Input -->
         <div class="relative">
-            <input type="text" wire:model="searchTerm" placeholder="Search services..."
+            <input type="text" wire:model.live="searchTerm" placeholder="Search services..."
                 class="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-[#33CD99] focus:border-[#33CD99]">
             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
                 stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
@@ -62,7 +62,7 @@
         </div>
 
         <div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6 mt-6">
-            @forelse ($services as $service)
+            @foreach ($services as $service)
                 <div class="bg-white p-4 rounded-lg border group" wire:key={{ $service->id }}>
                     <div class="h-44 relative w-full">
                         <img src="{{ $service->image === 'defaultService.jpg' ? Storage::url('services/') . $service->image : Storage::url($service->image) }}"
@@ -86,11 +86,14 @@
                             @endauth
                         </div>
                     </div>
-                    <h2 class="text-xl font-bold mt-4">{{ $service->title }}</h2>
+                    <div class="flex flex-col-reverse md:flex-row md:justify-between md:items-center mt-2 md:mt-0">
+                        <h2 class="text-xl font-bold mt-4">{{ $service->title }}</h2>
+                        <p class="text-sm bg-amber-500 text-white px-4 py-2 rounded w-fit">{{ $service->category->name }}</p>
+                    </div>
                     <p class="text-gray-600">{{ '@' . $service->user->username }}</p>
                     <p class="text-gray-600">{{ $service->description }}</p>
                     <p class="text-gray-600">{{ $service->location }}</p>
-                    <div class="flex items-center mt-4 space-x-3">
+                    <div class="flex items-center mt-4 space-x-3 overflow-x-auto">
                         <a class="px-4 py-2 bg-blue-500 hover:bg-blue-700 text-white rounded-md transition ease-out text-center whitespace-nowrap"
                             href={{ $service->maps }} target="_blank" rel="noopener noreferrer">Google
                             Maps</a>
@@ -107,9 +110,7 @@
                         @endif
                     </div>
                 </div>
-            @empty
-                <p class="text-gray-600">No services yet...</p>
-            @endforelse
+            @endforeach
         </div>
         <div x-show="openModal" class="fixed inset-0 bg-gray-600 bg-opacity-50 flex justify-center items-center z-[99]"
             @click.self="openModal = false" @keydown.escape.window="openModal = false">

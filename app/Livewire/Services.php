@@ -7,11 +7,10 @@ use App\Models\Service;
 
 use App\Livewire\Wishlist;
 use App\Livewire\CartManager;
-use Exception;
 use Illuminate\Support\Facades\Storage;
-use Illuminate\Support\Facades\Validator;
 use Livewire\Component;
 use Livewire\WithFileUploads;
+use Illuminate\Database\Eloquent\Builder;
 
 class Services extends Component
 {
@@ -20,21 +19,26 @@ class Services extends Component
     public $categoryId, $serviceId, $title, $description, $price, $location, $maps, $image;
     public $isModalOpen = false;
     public $isConfirming = false;
-    public $searchTerm;
+    public string $searchTerm = '';
 
     public function render()
     {
-        $services = Service::when($this->searchTerm, function ($query) {
-            $query
+        // $services = Service::latest()->get();
+        $services = Service::with('category')->when(
+            $this->searchTerm !== '',
+            fn(Builder $query) => $query
                 ->where('title', 'like', '%' . $this->searchTerm . '%')
-                // ->orWhere('category', 'like', '%' . $this->searchTerm . '%')
-                ->orWhere('location', 'like', '%' . $this->searchTerm . '%');
-        })->get();
+                ->orWhere('location', 'like', '%' . $this->searchTerm . '%')
+                ->orWhereHas('category', function (Builder $query) {
+                    $query->where('name', 'like', '%' . $this->searchTerm . '%');
+                }),
+        )->get();
+
         $categories = Category::all();
 
         return view('livewire.services', [
             'services' => $services,
-            'categories' => $categories
+            'categories' => $categories,
         ])->extends('layouts.app');
     }
 
