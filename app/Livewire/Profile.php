@@ -90,6 +90,7 @@ class Profile extends Component
         }
 
         session()->flash('message', 'Profile updated successfully.');
+        $this->current_password = "";
     }
 
     public function render()
