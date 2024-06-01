@@ -23,7 +23,6 @@ class Services extends Component
 
     public function render()
     {
-        // $services = Service::latest()->get();
         $services = Service::with('category')->when(
             $this->searchTerm !== '',
             fn(Builder $query) => $query
