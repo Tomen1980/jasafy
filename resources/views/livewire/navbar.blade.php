@@ -22,7 +22,7 @@
                             src="{{ asset('logo.svg') }}" /></a>
                     <a class="text-gray-500 hover:text-gray-700 px-3 py-2 rounded-md text-sm font-medium hidden md:block"
                         href={{ route('services') }} wire:navigate>Services</a>
-                    <a class="text-gray-500 hover:text-gray-700 px-3 py-2 rounded-md text-sm font-medium hidden md:block" href={{ route("customer-health") }} wire:navigate>Customer Health</a>
+                    <a class="text-gray-500 hover:text-gray-700 px-3 py-2 rounded-md text-sm font-medium hidden md:block" href={{ route("customer-support") }} wire:navigate>Customer Support</a>
                 </div>
             </div>
             <div class="hidden md:flex md:items-center md:space-x-4">
@@ -81,6 +81,8 @@
                 wire:navigate>Home</a>
             <a class="text-gray-500 hover:text-gray-700 block px-3 py-2 rounded-md text-base font-medium"
                 href={{ route('services') }}>Services</a>
+            <a class="text-gray-500 hover:text-gray-700 block px-3 py-2 rounded-md text-base font-medium"
+                href={{ route('customer-support') }}>Customer Support</a>
             @auth
                 @if (Auth::user()->role === 'customer')
                     <a href={{ route('my-wishlist') }}

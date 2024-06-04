@@ -33,7 +33,9 @@ class MyOrders extends Component
     private function formatPrices()
     {
         foreach ($this->orders as $order) {
-            $order->service->price = 'Rp ' . number_format($order->service->price, 2, ',', '.');
+            if (is_numeric($order->service->price)) {
+                $order->service->price = 'Rp ' . number_format((float)$order->service->price, 2, ',', '.');
+            }
         }
     }
 

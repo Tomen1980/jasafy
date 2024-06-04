@@ -59,17 +59,17 @@ class Order extends Component
             ['id' => $this->order_id],
             [
                 'user_id' => auth()->user()->id,
-                // 'total_price' => $this->service->price,
                 'file_url' => $imagePath,
                 'service_id' => $this->service_id,
             ],
         );
 
-        session()->flash('message', $this->order_id ? 'Order Updated Successfully.' : 'Order Created Successfully.');
-
         if (!$this->order_id) {
             $this->resetInputFields();
         }
+        session()->flash('message', $this->order_id ? 'Order Updated Successfully.' : 'Order Created Successfully.');
+        
+        return redirect(route('services'));
     }
 
     public function delete($id)

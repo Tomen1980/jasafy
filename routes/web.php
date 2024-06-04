@@ -41,7 +41,7 @@ Route::get('password/reset', Email::class)->name('password.request');
 
 Route::get('password/reset/{token}', Reset::class)->name('password.reset');
 
-Route::view('customer-health', 'customer-health')->name('customer-health');
+Route::view('customer-support', 'customer-support')->name('customer-support');
 
 Route::middleware('auth')->group(function () {
     Route::get('email/verify', Verify::class)
